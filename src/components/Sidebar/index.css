@@ -1,0 +1,38 @@
+.sidebar {
+    overflow: scroll;
+}
+
+.project-summary-element {
+    float:left;
+    padding: 20px;
+  }
+
+div.sidebar button {
+    width: 100%;
+    height:30px;
+    font-size:15px;
+    background-color:orange;
+  }
+  
+  div.sidebar > p {
+    margin: 0 0 20px 0;
+    padding: 0;
+  }
+  
+  div.sidebar > p {
+    list-style: none;
+    border-bottom: 1px solid grey;
+    padding: 0 5px;
+  }
+  
+  div.sidebar > p  {
+    border-top: 1px solid grey;
+  }
+  
+  div.sidebar > p:hover {
+    background-image: linear-gradient(black,gray);
+    color:white;
+    background-repeat: no-repeat;
+    background-color: #4A9EEC;
+  }
+  

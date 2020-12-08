@@ -1,0 +1,30 @@
+div.wrapper {
+    margin: 0 auto;
+    background-color: orange;
+    
+}
+nav {
+    display:block; 
+    overflow:auto;
+}
+nav a {
+    float:left;
+    text-align:center;
+    width:25%;
+}
+nav a {
+    color:black;
+}
+
+nav a:visited {
+    color:black;
+}
+
+nav a:active {
+    color:orange;
+}
+
+nav a:hover {
+    color:green;
+
+}
