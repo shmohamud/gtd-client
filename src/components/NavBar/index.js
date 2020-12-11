@@ -9,7 +9,7 @@ export default function LinkRouter() {
       <Link to="/">Execute</Link>
       <Link to="/capture">Capture</Link>
       <Link to="/next-actions">Next Actions</Link>
-      <Link to="/projects">Projects</Link>
+      <Link to="/plan">Plan</Link>
       </nav>
     </div>
   );

@@ -6,77 +6,47 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DateAndTimePickers from "../../common/DateAndTimePickers";
+import DateAndTimePickers from "../../components/DateAndTimePickers";
 import useForm from "../../hooks/useForm";
 
-
 //TODO: Make Generic! Add buttonText, dialogContentText, textField objects array [{label, name, type, styles, etc}]
- 
-export default function FormDialog({ open, setOpen }) {
-  const onSubmit = (validity, values) => {
-    console.log("on submit");
-    fetch("http://localhost:4000/projects/create", {
-      method: "POST",
-      body: JSON.stringify(values),
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    });
-    setOpen(false);
-  };
-  const { handleChange, handleSubmit, values } = useForm(onSubmit);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+export default function FormDialog({
+  open,
+  setOpen,
+  onSubmit,
+  btnTexts,
+  dialogContentText,
+textFields,
+  dialogTitleText,
+}) {
+  const { handleChange, handleSubmit, values } = useForm(onSubmit);
 
   const handleClose = () => {
     setOpen(false);
   };
 
+
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Create New Project
-      </Button>
       <Dialog
         open={open}
         onChange={handleChange}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">New Project Details</DialogTitle>
+        <DialogTitle id="form-dialog-title">{dialogTitleText}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please enter a title, description and deadline for completion.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="title"
-            name="title"
-            label="Project Title"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            name="description"
-            margin="dense"
-            id="description"
-            label="Project Description"
-            type="text"
-            fullWidth
-          />
+          <DialogContentText>{dialogContentText}</DialogContentText>
+          {textFields && textFields.map((field) => <TextField {...field} />)}
           <DateAndTimePickers />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            {btnTexts.close}
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Create
+            {btnTexts.submit}
           </Button>
         </DialogActions>
       </Dialog>

@@ -13,8 +13,9 @@ export default function useForm(
   const [err, setErr] = useState(null);
 
   const handleSubmit = (event) => {
+    console.log("VALUES: ", values)
+    debugger
     event.preventDefault();
-    debugger;
     try {
       onSubmit(validity, values);
     } catch (err) {

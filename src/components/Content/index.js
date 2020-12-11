@@ -6,11 +6,11 @@ import Grid from "@material-ui/core/Grid"
 
 //TODO: Make generic, add gridSize prop
 
-const Content = ({ selected }) => {
+const Content = ({ selected, data, text }) => {
   return (
     <Grid item xs={9}>
     <div className={"content"} >
-  {!selected ? <Instructions />:<Viewer selectedId={selected} />}
+  {!selected ? <Instructions text={text} />:<Viewer selectedId={selected} data={data} />}
     </div>
     </Grid> 
   );

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import MyActionsView from "../../views/MyActionsView";
-
+import List from '../List'
 //TODO: Remove state and convert to purely reusable presentational component
 //TODO: Remove MyActionsList from here (to match with new directory organization rules...Views are composed of Components, not Vice Versa.)
 //TODO: Make custom hooks containing all routes of each model.
 
-const Viewer = ({ selectedId }) => {
+const Viewer = ({ selectedId, data }) => {
   const [project, setProject] = useState(null);
 
   const fetchProject = async function () {
@@ -31,7 +31,7 @@ const Viewer = ({ selectedId }) => {
     fetchProject().then((project) => setProject(project));
   }, []);
 
-  return <MyActionsView project={project} />;
+  return 'VIEWER COMPONENT';
 };
 
 export default Viewer;

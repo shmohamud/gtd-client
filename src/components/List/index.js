@@ -1,14 +1,17 @@
-import Card from '../Card'
+import GenericDetailsCard from '../GenericDetailsCard'
 
-//TODO: Make generic. Selector and Model, so List of Projects and Actions are equally viewable. Props should be: select & data
 
-const List = ({ select, projects }) => {
-    return (
-      <ul>
-        {projects.map(project => (
-          <Card key={project._id} project={project} select={select} />
+const List = ({ select, data, btnTexts, actionTextFields, modelName, textFields }) => {
+
+      if(data === undefined){
+        return ''
+      }
+      return (
+     data.length && (<ul>
+        {data.map( d => (
+          <GenericDetailsCard key={d._id} data={d} select={select} btnTexts={btnTexts} actionTextFields={actionTextFields} modelName={modelName} textFields={textFields}  />
         ))}
-      </ul>
+      </ul>)
     );
   };
 
