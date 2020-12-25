@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const defaultOnSubmit = (validity, values) => {
   console.log(validity, values);
@@ -12,10 +12,9 @@ export default function useForm(
   const [validity, setValidity] = useState({});
   const [err, setErr] = useState(null);
 
-  const handleSubmit = (event) => {
-    console.log("VALUES: ", values)
-    debugger
+  const handleSubmit = (event) => {  
     event.preventDefault();
+    
     try {
       onSubmit(validity, values);
     } catch (err) {
@@ -26,8 +25,7 @@ export default function useForm(
   const handleChange = (event) => {
     let value = event.target.value;
     let name = event.target.name;
-
-    console.log("VAL: ", value, "NAME: ", name);
+    console.log("val: ", value, "name: ", name);
     if (validationSchema[name]) {
       let isValid = validationSchema[name](value);
       setValidity((validity) => {
@@ -48,6 +46,7 @@ export default function useForm(
     handleChange,
     handleSubmit,
     values,
+    setValues,
     validity,
     err,
     clearErr,
