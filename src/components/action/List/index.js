@@ -14,14 +14,13 @@ const List = ({
     return "";
   }
   const isChecked = (action) => {
-    debugger
       if(checkedActions.length === 1){
         return checkedActions.includes(a => a._id === action._id)
       }
   }
 
   const handleCheck = (action) => {
-    setCheckedActions(actions=>[...checkedActions, action])
+    setCheckedActions(checkedActions=>[...checkedActions, action])
   }
 
   //On click of the list item --- delete the item from project array in state --- and delete the item from actual backend.

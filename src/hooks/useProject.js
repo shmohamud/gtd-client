@@ -39,6 +39,7 @@ export default function useProject() {
         body: JSON.stringify(values),
       });
       const data = await response.json();
+      setProjects((projects)=>[...projects, data])
       console.log("Created project: ", data);
     } catch (err) {
       setErr(err);
@@ -57,6 +58,7 @@ export default function useProject() {
   };
 
   const deleteById = async (id) => {
+    setProjects((projects)=> [...projects.filter(p => p._id !== id)])
     await fetch(`${baseUrl}/projects/${id}`, {
       method: "DELETE",
       headers: {
@@ -64,6 +66,7 @@ export default function useProject() {
         "Content-Type": "application/json",
       },
     });
+
   };
 
   return {

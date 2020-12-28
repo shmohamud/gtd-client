@@ -1,15 +1,24 @@
-import React from 'react'
-import styles from './index.css';
+import React, { useEffect } from "react";
+import styles from "./index.css";
+import { useApp } from "../../../AppProvider";
 
-const List = ({length, items}) => {
-    return (
-        <div className="braindump-container">
+const List = () => {
+  const { useBraindump } = useApp();
+  const { getAll, braindumps } = useBraindump;
+  useEffect(() => {
+    getAll();
+  }, []);
+  debugger;
 
-<ol key={length}>
-    {items.map(_i => <li>{_i}</li>)}
-</ol>
-</div>
-    )
-}
+  return (
+    <div className="braindump-container">
+      <ol key={braindumps.length}>
+        {braindumps.map((_i) => (
+          <li>{_i.item}</li>
+        ))}
+      </ol>
+    </div>
+  );
+};
 
-export default List
+export default List;

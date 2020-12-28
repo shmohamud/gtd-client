@@ -88,6 +88,7 @@ export default function useAction() {
   return {
     actions: actions,
     action: action,
+    setActions,
     getAll,
     getById,
     createAssigned,

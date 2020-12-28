@@ -14,7 +14,6 @@ export default function useForm(
 
   const handleSubmit = (event) => {  
     event.preventDefault();
-    
     try {
       onSubmit(validity, values);
     } catch (err) {

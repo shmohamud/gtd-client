@@ -38,7 +38,7 @@ export default function CreateDialog({ open, setOpen, onSubmit }) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color="secondary">
+          <Button onClick={(e)=>{handleSubmit(e); return handleClose()}} color="secondary">
             Create
           </Button>
         </DialogActions>

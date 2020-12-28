@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TextInput = ({ keyPress }) => {
   const { useForm } = useApp();
-  const { handleChange, handleSubmit, values } = useForm();
+  const { handleChange } = useForm();
   const classes = useStyles();
 
   return (
