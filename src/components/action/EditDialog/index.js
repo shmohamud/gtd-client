@@ -10,33 +10,16 @@ import DateAndTimePickers from "../../common/DateAndTimePickers";
 import { useApp } from "../../../AppProvider";
 
 const EditDialog = ({
-  data,
   open,
-  setOpen,
-  dialogContentText,
-  dialogTitleText,
-  textFields,
-  btnTexts
+  setOpen
 }) => {
-  const { useForm, useAction } = useApp()
+  const { useForm, useAction } = useApp();
+  const { updateById, action} = useAction;
 
-  const {updateById, getAll, actions} = useAction
-  const onSubmit = () => {
-      console.log("IN ON SUBMIT UPDATE BY ID", data._id, values)
-      const id = data._id
-    updateById(id, values)
-    setOpen(false)
-}
-
- const {handleChange, handleSubmit, values} = useForm(onSubmit)
+  const { handleChange, handleSubmit} = useForm(updateById);
   const handleClose = () => {
     setOpen(false);
   };
-
-  useEffect(()=>{
-     getAll().then(actions => console.log("ACTIONS: ", actions))
-  },[])
-
 
 
   return (
@@ -47,17 +30,36 @@ const EditDialog = ({
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">{dialogTitleText}</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Action Details</DialogTitle>
         <DialogContent>
-          <DialogContentText>{dialogContentText}</DialogContentText>
-          {textFields && textFields.map((field) => <TextField {...field} />)}
+          <DialogContentText>Edit action type and details below. </DialogContentText>
+          <TextField
+            autoFocus="true"
+            name="type"
+            margin="dense"
+            id="type"
+            label="Action Type"
+            type="text"
+            fullWidth="true"
+            defaultValue={action.type}
+          />
+          <TextField
+            autoFocus="true"
+            name="description"
+            margin="dense"
+            id="description"
+            label="Action Description"
+            type="text"
+            fullWidth="true"
+            defaultValue={action.description}
+          />
           <DateAndTimePickers />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
-          <Button onClick={handleSubmit} color="secondary">
+          <Button onClick={async(e)=>{await handleSubmit(e);return handleClose()}} color="secondary">
             Submit
           </Button>
         </DialogActions>

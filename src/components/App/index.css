@@ -1,0 +1,17 @@
+.container {
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+main {
+    overflow:hidden;
+    display:flex;
+    flex:1;
+}
+
+header {
+    background-color: black;
+    width:100%;
+}
+

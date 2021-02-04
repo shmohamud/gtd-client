@@ -1,9 +1,10 @@
-import React from 'react'
-import styles from './index.css'
+import React from 'react';
+import styles from './index.css';
+
 const ArchiveView = () => {
     return (
         <div className={'archive-view-main'}>
-            Archive View
+           <h1>coming soon!</h1>
         </div>
     )
 }

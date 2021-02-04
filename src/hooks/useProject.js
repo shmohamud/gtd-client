@@ -18,9 +18,9 @@ export default function useProject() {
     }
   };
 
-  const getById = async (id) => {
+  const getById = async () => {
     try {
-      const response = await fetch(`${baseUrl}/projects/${id}`);
+      const response = await fetch(`${baseUrl}/projects/${project._id}`);
       const data = await response.json();
       setProject(data);
     } catch (err) {
@@ -39,38 +39,45 @@ export default function useProject() {
         body: JSON.stringify(values),
       });
       const data = await response.json();
-      setProjects((projects)=>[...projects, data])
+      setProjects((projects) => [...projects, data]);
       console.log("Created project: ", data);
     } catch (err) {
       setErr(err);
     }
   };
 
-  const updateById = async (id, values) => {
-    fetch(`${baseUrl}/projects/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+  const updateById = async (validity, values) => {
+    console.log("PROJECT: ", project);
+    try {
+      fetch(`${baseUrl}/projects/${project._id}`, {
+        method: "PATCH",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      setProject((project) => Object.assign(project, values));
+    } catch (err) {
+      setErr(err);
+    }
   };
 
-  const deleteById = async (id) => {
-    setProjects((projects)=> [...projects.filter(p => p._id !== id)])
-    await fetch(`${baseUrl}/projects/${id}`, {
+  const deleteById = async () => {
+    setProjects((projects) => [...projects.filter((p) => p._id !== project._id)]);
+    await fetch(`${baseUrl}/projects/${project._id}`, {
       method: "DELETE",
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     });
-
   };
 
   return {
-    projects,
+    project: project,
+    projects: projects,
+    setProject,
     getAll,
     getById,
     create,

@@ -7,15 +7,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DateAndTimePickers from "../../common/DateAndTimePickers";
-import { projectTextFields } from "../constants";
-import useForm from "../../../hooks/useForm";
+import { useApp } from "../../../AppProvider";
 
-export default function FormDialog({ open, setOpen, onSubmit, project }) {
-  const { handleChange, handleSubmit, values } = useForm(onSubmit);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+export default function EditDialog({ open, handleClose }) {
+  const { useForm, useProject } = useApp();
+  const { updateById, project } = useProject;
+  const { handleChange, handleSubmit } = useForm(updateById);
 
   return (
     <div>
@@ -28,15 +25,39 @@ export default function FormDialog({ open, setOpen, onSubmit, project }) {
         <DialogTitle id="form-dialog-title">Project Editor</DialogTitle>
         <DialogContent>
           <DialogContentText>Edit Project Details</DialogContentText>
-          {projectTextFields(project) &&
-            projectTextFields(project).map((field) => <TextField {...field} />)}
+          <TextField
+            autoFocus="true"
+            name="title"
+            margin="dense"
+            id="title"
+            label="Project Title"
+            type="text"
+            fullWidth="true"
+            defaultValue={project.title}
+          />
+          <TextField
+            autoFocus="true"
+            name="description"
+            margin="dense"
+            id="description"
+            label="Project Description"
+            type="text"
+            fullWidth="true"
+            defaultValue={project.title}
+          />
           <DateAndTimePickers />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
-          <Button onClick={handleSubmit} color="secondary">
+          <Button
+            onClick={async (e) => {
+              await handleSubmit(e);
+              return handleClose();
+            }}
+            color="secondary"
+          >
             Submit
           </Button>
         </DialogActions>

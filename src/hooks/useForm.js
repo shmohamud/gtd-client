@@ -30,7 +30,7 @@ export default function useForm(
       setValidity((validity) => {
         return { ...validity, [name]: isValid };
       });
-      event.target.setCustomValidity(isValid ? "Is invalid" : "");
+      event.target.setCustomValidity(isValid ? "" : "is invalid");
     }
     setValues((values) => {
       return { ...values, [name]: value };

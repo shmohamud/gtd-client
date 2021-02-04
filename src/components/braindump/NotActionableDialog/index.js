@@ -1,0 +1,82 @@
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import IncubateDialog from "../../incubate/CreateDialog";
+import DeleteDialog from "../DeleteDialog";
+import ReferenceDialog from "../../reference/CreateDialog";
+
+const NotActionableDialog = ({ braindump, clearDecision, onProcessed}) => {
+  const [open, setOpen] = useState(true);
+  const [openDialog, setOpenDialog] = useState("");
+
+  const handleClickOpen = (name) => {
+    setOpenDialog(name);
+  };
+
+  const handleClose = () => {
+    setOpenDialog("");
+    clearDecision();
+    setOpen(false);
+  };
+
+  const handleCloseOrCancel = () => {
+    setOpenDialog("");
+  };
+
+  return (
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{braindump.description}</DialogTitle>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => handleClickOpen("DELETE")}
+          >
+            Delete
+          </Button>
+          <DeleteDialog
+            open={openDialog === "DELETE"}
+            handleCloseOrCancel={handleCloseOrCancel}
+            id={braindump._id}
+            onProcessed={onProcessed}
+          />
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => handleClickOpen("INCUBATE")}
+          >
+            Incubate
+          </Button>
+          <IncubateDialog
+            open={openDialog === "INCUBATE"}
+            handleCloseOrCancel={handleCloseOrCancel}
+            id={braindump._id}
+            onProcessed={onProcessed}
+          />
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => handleClickOpen("REFERENCE")}
+          >
+            Reference
+          </Button>
+          <ReferenceDialog
+            open={openDialog === "REFERENCE"}
+            handleCloseOrCancel={handleCloseOrCancel}
+            id={braindump._id}
+            onProcessed={onProcessed}
+          />
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
+
+export default NotActionableDialog;

@@ -30,7 +30,7 @@ export default function useBraindujmp() {
   };
 
   const create = async (validity, values) => {
-    const dump = { item: values };
+    const dump = { description: values };
     try {
       const response = await fetch(`${baseUrl}/braindumps`, {
         method: "POST",
@@ -48,14 +48,20 @@ export default function useBraindujmp() {
   };
 
   const deleteById = async (id) => {
-    setBraindumps((braindumps) => [...braindumps.filter((p) => p._id !== id)]);
-    await fetch(`${baseUrl}/braindumps/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      await fetch(`${baseUrl}/braindumps/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      setBraindumps((braindumps) => [
+        ...braindumps.filter((p) => p._id !== id),
+      ]);
+    } catch (err) {
+      setErr(err);
+    }
   };
 
   return {

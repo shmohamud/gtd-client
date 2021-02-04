@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import List from "../../components/action/List";
+import { useApp } from "../../AppProvider";
+import Footer from '../../components/common/Footer';
 import Timer from '../../components/common/Timer';
-import Grid from '@material-ui/core/Grid'
-const NowView = () => {
-    //View for showing the CURRENT next action to focus on completion. 
-    //Comes with a timer that takes single prop of initial for starting a countdown Timer. Parkinson's Law!
-    //TODO: Create NextAction component for displaying single Action details.
-    return (
-        <Grid item>
-        <div>
-            <Timer initial={10}/>
-        </div>
-        </Grid>
-    )
+import styles from './index.css';
+
+const NowView = ({quotationIndex}) => {
+  const { useAction } = useApp();
+  const { getAll, actions, updateById } = useAction;
+  const [checkedActions, setCheckedActions] = useState([]) 
+  const {time, setTime} = useState(1200)
+  const [mounted, setMounted] = useState(false)
+    useEffect(() => {
+        if(!mounted){
+            setMounted(true)
+            getAll();
+
+        }
+ 
+  }, []);
+  const handleCheck = async (d) => {
+    let values = {...d, complete: true}
+    await updateById({}, values);
+    setCheckedActions(checkedActions=>[...checkedActions, d])
+  };
+
+  const isChecked = (action) => {
+    if(checkedActions.length >= 1){
+      return checkedActions.some(a => a._id === action._id)
+    }
+    return false
 }
 
-export default NowView
+  return (
+    <div className="now-view-container">
+      <Timer initial={1200}/>
+      <div className="actions-list-container">
+        {actions.length ? ( <List actions={actions} handleCheck={handleCheck} isChecked={isChecked}  />
+        ):<h1>There are no Actions to display</h1>} 
+         </div>
+        <Footer index={quotationIndex} />
+       
+    </div>
+  );
+};
+
+export default NowView;

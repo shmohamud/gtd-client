@@ -7,11 +7,14 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DateAndTimePickers from "../../common/DateAndTimePickers";
-import useForm from "../../../hooks/useForm";
-import { projectTextFields } from "../constants";
+import {useApp} from "../../../AppProvider";
 
-export default function CreateDialog({ open, setOpen, onSubmit }) {
-  const { handleChange, handleSubmit, values } = useForm(onSubmit);
+export default function CreateDialog({ open, setOpen }) {
+  
+  const {useProject, useForm} = useApp()
+  const {create} = useProject
+  const { handleChange, handleSubmit } = useForm(create);
+
 
   const handleClose = () => {
     setOpen(false);
@@ -25,20 +28,36 @@ export default function CreateDialog({ open, setOpen, onSubmit }) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
+        <DialogTitle id="form-dialog-title">Create a Project</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please enter a title and description for the project
           </DialogContentText>
-          {projectTextFields({}) &&
-            projectTextFields({}).map((field) => <TextField {...field} />)}
+          <TextField 
+            autoFocus= "true"
+             name="title"
+             margin="dense"
+             id="title"
+             label="Project Title"
+             type="text"
+             fullWidth="true"
+             />
+               <TextField 
+            autoFocus= "true"
+             name="description"
+             margin="dense"
+             id="description"
+             label="Project Description"
+             type="text"
+             fullWidth="true"
+             />
           <DateAndTimePickers />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={(e)=>{handleSubmit(e); return handleClose()}} color="secondary">
+          <Button onClick={async (e)=>{await handleSubmit(e); return handleClose()}} color="secondary">
             Create
           </Button>
         </DialogActions>

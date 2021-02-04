@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
-import FormDialog from "../FormDialog";
+import EditDialog from "../EditDialog";
 import { useApp } from "../../../AppProvider";
-import { projectDetailsBtnTexts, projectTextFields } from "../constants";
 import styles from "./index.css";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     float: "left",
+    margin: "10px 10px 10px 10px",
   },
   bullet: {
     display: "inline-block",
@@ -23,12 +23,16 @@ const useStyles = makeStyles({
   title: {
     fontSize: 16,
   },
-  pos: {
+  deadline: {
     marginBottom: 12,
+    color: "gray",
   },
   content: {
     "&:hover": {
-      background: "lightblue",
+      background: "rgb(2,0,36)",
+      background:
+        "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(70,70,71,1) 0%, rgba(3,3,3,1) 43%)",
+      color: "whitesmoke",
     },
   },
   backDrop: {
@@ -38,12 +42,14 @@ const useStyles = makeStyles({
   },
 });
 
-const DetailsCard = ({ data, select, onSubmit, modelName }) => {
+const DetailsCard = ({ data, select }) => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
-  const { useForm } = useApp();
-
-  const { handleChange, handleSubmit, values } = useForm(onSubmit);
+  const { useProject } = useApp();
+  const { project, setProject, deleteById } = useProject;
+  useEffect(() => {
+    setProject(data);
+  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -59,78 +65,72 @@ const DetailsCard = ({ data, select, onSubmit, modelName }) => {
 
   const classes = useStyles();
 
-  let actions = "";
-
-  const details = Object.keys(data).length
-    ? Object.keys(data).map((k) => {
-        if (k !== "actions")
-          return (
-            <p>
-              {k.toUpperCase()} : {data[k]}
-            </p>
-          );
-        else {
-          actions = data[k];
-        }
-      })
-    : "";
+  const details =
+    Object.keys(data).length &&
+    Object.keys(data).map((k) => {
+      return (
+        <p>
+          {k.toUpperCase()} : {data[k]}
+        </p>
+      );
+    });
 
   const body = (
-    <div className={classes.backDrop} styles={{ overflow: "visible" }}>
+    <div
+      className={classes.backDrop}
+      style={{ textAlign: "center", fontFamily: "math", overflow: "visible" }}
+    >
       <h2> Project Details </h2>
       {details}
       <div>
         <Button variant="outlined" color="primary" onClick={handleOpenEditor}>
-          Edit {modelName}
+          Edit Project
         </Button>
-        <FormDialog
-          data={data}
-          open={edit}
-          setOpen={setEdit}
-          onSubmit={onSubmit}
-          btnTexts={projectDetailsBtnTexts}
-          textFields={projectTextFields(data)}
-          dialogTitleText={`Edit Project Details`}
-        />
+        <EditDialog open={edit} handleClose={handleClose} />
+        <Button variant="outlined" color="primary" onClick={async ()=>{deleteById(); select({}); return handleClose()}}>
+          Delete Project
+        </Button>
       </div>
     </div>
   );
 
   return (
-    <>
-      <Card className={classes.root} onClick={handleOpen}>
-        <CardContent
-          className={classes.content}
-          onClick={() => select(data._id)}
-        >
-          <Typography className={classes.title} variant="h5" component="h2">
-            {data.title}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            {data.deadline !== undefined
-              ? new Date(data.deadline).toDateString()
-              : ""}
-          </Typography>
-          <Typography variant="body2" component="p">
-            {data.description}
-            <br />
-          </Typography>
-        </CardContent>
-      </Card>
+    project && (
+      <>
+        <Card className={classes.root} onClick={handleOpen}>
+          <CardContent
+            className={classes.content}
+            onClick={() => setProject(data)}
+          >
+            <Typography className={classes.title} variant="h5" component="h2">
+              {data.title}
+            </Typography>
+            <Typography className={classes.deadline}>
+              {data.deadline !== undefined
+                ? new Date(data.deadline).toDateString()
+                : ""}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {data.description}
+              <br />
+            </Typography>
+          </CardContent>
+        </Card>
 
-      <Modal
-        className={"modal"}
-        open={open}
-        onClose={handleClose}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {body}
-      </Modal>
-    </>
+        <Modal
+          className={"modal"}
+          open={open}
+          onClose={handleClose}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {body}
+        </Modal>
+      </>
+    )
   );
 };
 

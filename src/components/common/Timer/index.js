@@ -37,15 +37,39 @@ export default class Timer extends React.Component {
     }
   }
 
+  renderTime() {
+    let hours = Math.floor(this.state.secondsLeft / (60 * 60));
+
+    let divisor_for_minutes = this.state.secondsLeft % (60 * 60);
+    let minutes = Math.floor(divisor_for_minutes / 60);
+
+    let divisor_for_seconds = divisor_for_minutes % 60;
+    let seconds = Math.ceil(divisor_for_seconds);
+
+    let obj = {
+      "h": hours,
+      "m": minutes,
+      "s": seconds
+    };
+ 
+  
+    return(<h1>Minutes: {obj.m} Seconds: {obj.s}</h1>)
+
+  }
+
   render() {
     const button = !this.state.on ? (
       <button onClick={this.startTimer}>Start</button>
     ) : (
       <button onClick={this.stopTimer}>Stop</button>
+
     );
+
+
+
     return (
       <>
-        <h1>Seconds: {this.state.secondsLeft}</h1>
+        {this.renderTime()}
         {button}
       </>
     );

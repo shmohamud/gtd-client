@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
@@ -14,57 +12,34 @@ import { Link } from "react-router-dom";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import CalendarViewDay from "@material-ui/icons/CalendarViewDay";
 import WorkIcon from "@material-ui/icons/Work";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import WorkOffIcon from "@material-ui/icons/WorkOff";
+import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
+import Update from "@material-ui/icons/Update";
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    gridColumn: "1/2",
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: "orange",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+   flexDirection:'column',
+   backgroundColor:'black'
   },
   drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    position:"relative",
   },
 }));
 
-export default function AppDrawer({ projects, select }) {
+export default function AppDrawer() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            Getting Things Done
-          </Typography>
-        </Toolbar>
-      </AppBar>
+
       <Drawer
-        className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
+        <Toolbar>
+        <div >
           <List>
             <ListItem button component={Link} to="/now" key={"21312312312"}>
               <ListItemIcon>
@@ -84,15 +59,26 @@ export default function AppDrawer({ projects, select }) {
             <ListItem
               button
               component={Link}
-              to="/process"
-              key={"2e132341r3d13e123e"}
+              to="/inbasket"
+              key={"87972e132341r3d13e123e"}
             >
               <ListItemIcon>
-                <AccountTreeIcon />
+                <ShoppingBasket/>
               </ListItemIcon>
-              <ListItemText primary={"Process"} />
+              <ListItemText primary={"In-Basket"} />
             </ListItem>
-            <ListItem button component={Link} to="/projects" key={"2e132e123e"}>
+            <ListItem
+              button
+              component={Link}
+              to="/braindump"
+              key={"120932e132341r3d13e123e"}
+            >
+              <ListItemIcon>
+                <Update/>
+              </ListItemIcon>
+              <ListItemText primary={"Braindump"} />
+            </ListItem>
+            <ListItem button component={Link} to="/projects" key={"67562e132e123e"}>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
@@ -102,17 +88,19 @@ export default function AppDrawer({ projects, select }) {
               button
               component={Link}
               to="/archive"
-              key={"2e1332242r2e123e"}
+              key={"900982e1332242r2e123e"}
             >
               <ListItemIcon>
                 <WorkOffIcon />
               </ListItemIcon>
-              <ListItemText primary={"Archived"} />
+              <ListItemText  disabled={true} primary={"Archived"} />
             </ListItem>
           </List>
         </div>
+        </Toolbar>
       </Drawer>
-      <Toolbar />
-    </div>
+   
+  
+   
   );
 }

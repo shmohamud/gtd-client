@@ -13,17 +13,17 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
   
-  export default function DateAndTimePickers() {
+  export default function DateAndTimePickers({handleChange}) {
     const classes = useStyles();
   
     return (
-      <form className={classes.container} noValidate>
+      <form className={classes.container} onChange={handleChange}>
         <TextField
+          required 
           id="datetime-local"
           label="Deadline"
           name="deadline"
           type="datetime-local"
-          defaultValue="2021-01-01T10:30"
           className={classes.textField}
           InputLabelProps={{
             shrink: true,

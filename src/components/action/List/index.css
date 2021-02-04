@@ -1,4 +1,8 @@
-.action-card-container {
-    display:grid;
-    grid-template-columns: 10% 90%;
+.checkbox-card-container {
+    display: flex;
+    padding: 1rem 1rem;
+}
+
+ul {
+    list-style-type: none;
 }
