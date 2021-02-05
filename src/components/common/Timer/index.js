@@ -1,4 +1,5 @@
 import React from "react";
+import styles from './index.css';
 
 export default class Timer extends React.Component {
   constructor(props) {
@@ -53,15 +54,15 @@ export default class Timer extends React.Component {
     };
  
   
-    return(<h1>Minutes: {obj.m} Seconds: {obj.s}</h1>)
+    return(<h1 className="timer-text">Minutes: {obj.m} Seconds: {obj.s}</h1>)
 
   }
 
   render() {
     const button = !this.state.on ? (
-      <button onClick={this.startTimer}>Start</button>
+      <button className="timer-btn" onClick={this.startTimer}>Start</button>
     ) : (
-      <button onClick={this.stopTimer}>Stop</button>
+      <button className="timer-btn" onClick={this.stopTimer}>Stop</button>
 
     );
 

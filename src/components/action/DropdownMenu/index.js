@@ -34,7 +34,7 @@ const DropdownMenu = ({ selectedIndex, setSelectedIndex, options }) => {
       <List component="nav" aria-label="Action type">
         <ListItem
           button
-          aria-haspopup="true"
+          aria-haspopup={true}
           aria-controls="action-type"
           aria-label="action type"
           onClick={handleClickListItem}

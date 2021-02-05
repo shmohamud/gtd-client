@@ -1,0 +1,11 @@
+.timer-btn {
+    text-align: center;
+    font-family: monospace;
+    background-color: black;
+    color: white;
+}
+
+.timer-text {
+    text-align: center;
+    font-family: monospace;
+}

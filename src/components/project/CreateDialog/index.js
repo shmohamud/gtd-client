@@ -7,14 +7,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DateAndTimePickers from "../../common/DateAndTimePickers";
-import {useApp} from "../../../AppProvider";
+import { useApp } from "../../../AppProvider";
 
-export default function CreateDialog({ open, setOpen }) {
-  
-  const {useProject, useForm} = useApp()
-  const {create} = useProject
+const CreateDialog = ({ open, setOpen }) => {
+  const { useProject, useForm } = useApp();
+  const { create } = useProject;
   const { handleChange, handleSubmit } = useForm(create);
-
 
   const handleClose = () => {
     setOpen(false);
@@ -33,35 +31,43 @@ export default function CreateDialog({ open, setOpen }) {
           <DialogContentText>
             Please enter a title and description for the project
           </DialogContentText>
-          <TextField 
-            autoFocus= "true"
-             name="title"
-             margin="dense"
-             id="title"
-             label="Project Title"
-             type="text"
-             fullWidth="true"
-             />
-               <TextField 
-            autoFocus= "true"
-             name="description"
-             margin="dense"
-             id="description"
-             label="Project Description"
-             type="text"
-             fullWidth="true"
-             />
+          <TextField
+            autoFocus={true}
+            name="title"
+            margin="dense"
+            id="title"
+            label="Project Title"
+            type="text"
+            fullWidth={true}
+          />
+          <TextField
+            autoFocus={true}
+            name="description"
+            margin="dense"
+            id="description"
+            label="Project Description"
+            type="text"
+            fullWidth={true}
+          />
           <DateAndTimePickers />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={async (e)=>{await handleSubmit(e); return handleClose()}} color="secondary">
+          <Button
+            onClick={async (e) => {
+              await handleSubmit(e);
+              return handleClose();
+            }}
+            color="secondary"
+          >
             Create
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
+};
+
+export default CreateDialog;

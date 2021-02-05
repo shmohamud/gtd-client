@@ -3,7 +3,7 @@ import styles from './index.css';
 
 const Logo = () => {
     return (
-      <div><h6>Metacognizer</h6></div>
+      <div><h3>Metacognizer</h3></div>
       
     )
 }

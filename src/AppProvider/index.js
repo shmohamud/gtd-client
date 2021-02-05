@@ -8,6 +8,7 @@ import useReview from "../hooks/useReview";
 import useReference from "../hooks/useReference";
 import useIncubate from "../hooks/useIncubate";
 import useInbasket from "../hooks/useInbasket";
+import useAuth from "../hooks/useAuth";
 
 const AppCtx = createContext();
 
@@ -20,6 +21,7 @@ const AppProvider = ({ children }) => {
     useReference: useReference(),
     useIncubate: useIncubate(),
     useInbasket: useInbasket(),
+    useAuth: useAuth(),
     useForm,
   };
 

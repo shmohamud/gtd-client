@@ -96,7 +96,7 @@ export default function CreateDialog({
 
             {delegate ? (
               <TextField
-                autoFocus="true"
+                autoFocus={true}
                 name="type"
                 margin="dense"
                 id="type"
@@ -109,7 +109,7 @@ export default function CreateDialog({
               />
             ) : (
               <TextField
-                autoFocus="true"
+                autoFocus={true}
                 name="type"
                 margin="dense"
                 id="type"
@@ -118,13 +118,13 @@ export default function CreateDialog({
               />
             )}
             <TextField
-              autoFocus="true"
+              autoFocus={true}
               name="description"
               margin="dense"
               id="description"
               label="Action Description"
               type="text"
-              fullWidth="true"
+              fullWidth={true}
             />
             {hasDeadline && <DateAndTimePickers handleChange={handleChange} />}
           </DialogContent>

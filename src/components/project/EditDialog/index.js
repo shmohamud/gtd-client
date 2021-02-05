@@ -26,23 +26,23 @@ export default function EditDialog({ open, handleClose }) {
         <DialogContent>
           <DialogContentText>Edit Project Details</DialogContentText>
           <TextField
-            autoFocus="true"
+            autoFocus={true}
             name="title"
             margin="dense"
             id="title"
             label="Project Title"
             type="text"
-            fullWidth="true"
+            fullWidth={true}
             defaultValue={project.title}
           />
           <TextField
-            autoFocus="true"
+            autoFocus={true}
             name="description"
             margin="dense"
             id="description"
             label="Project Description"
             type="text"
-            fullWidth="true"
+            fullWidth={true}
             defaultValue={project.title}
           />
           <DateAndTimePickers />

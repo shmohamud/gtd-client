@@ -34,23 +34,23 @@ const EditDialog = ({
         <DialogContent>
           <DialogContentText>Edit action type and details below. </DialogContentText>
           <TextField
-            autoFocus="true"
+            autoFocus={true}
             name="type"
             margin="dense"
             id="type"
             label="Action Type"
             type="text"
-            fullWidth="true"
+            fullWidth={true}
             defaultValue={action.type}
           />
           <TextField
-            autoFocus="true"
+            autoFocus={true}
             name="description"
             margin="dense"
             id="description"
             label="Action Description"
             type="text"
-            fullWidth="true"
+            fullWidth={true}
             defaultValue={action.description}
           />
           <DateAndTimePickers />

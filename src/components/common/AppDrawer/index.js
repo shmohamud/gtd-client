@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -29,9 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppDrawer() {
   const classes = useStyles();
-
   return (
-
       <Drawer
         variant="permanent"
         classes={{

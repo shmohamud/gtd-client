@@ -7,7 +7,7 @@ import IncubateDialog from "../../incubate/CreateDialog";
 import DeleteDialog from "../DeleteDialog";
 import ReferenceDialog from "../../reference/CreateDialog";
 
-const NotActionableDialog = ({ braindump, clearDecision, onProcessed}) => {
+const NotActionableDialog = ({ data, clearDecision, onProcessed}) => {
   const [open, setOpen] = useState(true);
   const [openDialog, setOpenDialog] = useState("");
 
@@ -32,7 +32,7 @@ const NotActionableDialog = ({ braindump, clearDecision, onProcessed}) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">{braindump.description}</DialogTitle>
+        <DialogTitle id="form-dialog-title">{data.description}</DialogTitle>
         <DialogActions>
           <Button
             variant="outlined"
@@ -44,7 +44,7 @@ const NotActionableDialog = ({ braindump, clearDecision, onProcessed}) => {
           <DeleteDialog
             open={openDialog === "DELETE"}
             handleCloseOrCancel={handleCloseOrCancel}
-            id={braindump._id}
+            id={data._id}
             onProcessed={onProcessed}
           />
           <Button
@@ -57,7 +57,7 @@ const NotActionableDialog = ({ braindump, clearDecision, onProcessed}) => {
           <IncubateDialog
             open={openDialog === "INCUBATE"}
             handleCloseOrCancel={handleCloseOrCancel}
-            id={braindump._id}
+            id={data._id}
             onProcessed={onProcessed}
           />
           <Button
@@ -70,7 +70,7 @@ const NotActionableDialog = ({ braindump, clearDecision, onProcessed}) => {
           <ReferenceDialog
             open={openDialog === "REFERENCE"}
             handleCloseOrCancel={handleCloseOrCancel}
-            id={braindump._id}
+            id={data._id}
             onProcessed={onProcessed}
           />
         </DialogActions>
