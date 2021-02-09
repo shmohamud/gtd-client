@@ -9,9 +9,15 @@ export default function useAction() {
   const [err, setErr] = useState(null);
 
   //Get list of all actions
-  const getAll = async (onlyIncomplete = false) => {
+  const getAll = async (token, onlyIncomplete = false) => {
     try {
-      const response = await fetch(`${baseUrl}/actions`);
+      const response = await fetch(`${baseUrl}/actions`, {
+        headers: new Headers({
+          'Authorization' : `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }), 
+      });
       const data = await response.json();
       let actions = filterComplete(data);
       let newWeekly = await filterWeeklyActions(actions);
@@ -54,13 +60,15 @@ export default function useAction() {
     }
   };
 
-  const create = async (values) => {
+  const create = async (token, validity, values) => {
+    console.log("Creating an action, token value is: ", token)
     try {
       const response = await fetch(`${baseUrl}/actions`, {
         method: "POST",
         headers: {
+          'Authorization' : `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(values),
       });
@@ -78,7 +86,7 @@ export default function useAction() {
         method: "PATCH",
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(values),
       });
@@ -99,13 +107,14 @@ export default function useAction() {
     }
   };
 
-  const deleteById = async (id) => {
+  const deleteById = async (token, id) => {
     try {
       await fetch(`${baseUrl}/actions/${id}`, {
         method: "DELETE",
         headers: {
+          'Authorization' : `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
       });
     } catch (err) {

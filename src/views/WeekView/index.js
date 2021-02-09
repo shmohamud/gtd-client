@@ -5,15 +5,17 @@ import List from "../../components/action/List";
 import styles from "./index.css";
 
 const WeekView = () => {
-  const { useAction } = useApp();
+  const { useAuth, useAction } = useApp();
+  const { token } = useAuth;
   const { getAll, updateById, weeklyActions } = useAction;
 
   const [checkedActions, setCheckedActions] = useState([]);
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     if (!mounted) {
       setMounted(true);
-      getAll();
+      getAll(token);
     }
   }, []);
 
@@ -22,7 +24,6 @@ const WeekView = () => {
     await updateById({}, values);
     setCheckedActions((checkedActions) => [...checkedActions, d]);
   };
-
   const isChecked = (action) => {
     if (checkedActions.length >= 1) {
       return checkedActions.some((a) => a._id === action._id);
@@ -34,7 +35,6 @@ const WeekView = () => {
     var diff = date.getDate() - date.getDay();
     return new Date(date.setDate(diff));
   };
-
   let dt = new Date(Date.now());
   let start = startOfWeek(dt);
   let dates = [];
@@ -61,66 +61,66 @@ const WeekView = () => {
     return filtered;
   };
 
-  return (
-    weeklyActions.length && (
-      <div className="week-view-main">
-        <h1>
-          Week of <span style={{ color: "red" }}>{dates[0]["month"]}</span>/
-          <span style={{ color: "red" }}>{dates[0]["Sun"]}</span> to{" "}
-          <span style={{ color: "red" }}>{dates[6]["month"]}</span>/
-          <span style={{ color: "red" }}>{dates[6]["Sat"]}</span>{" "}
-        </h1>
+  return weeklyActions.length ? (
+    <div className="week-view-main">
+      <h1>
+        Week of <span style={{ color: "red" }}>{dates[0]["month"]}</span>/
+        <span style={{ color: "red" }}>{dates[0]["Sun"]}</span> to{" "}
+        <span style={{ color: "red" }}>{dates[6]["month"]}</span>/
+        <span style={{ color: "red" }}>{dates[6]["Sat"]}</span>{" "}
+      </h1>
 
-        <DayHeader day={"Sunday"} />
-        <List
-          actions={filterDaily("Sun")}
-          handleCheck={handleCheck}
-          isChecked={isChecked}
-        />
+      <DayHeader day={"Sunday"} />
+      <List
+        actions={filterDaily("Sun")}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
 
-        <DayHeader day={"Monday"} />
-        <List
-          actions={filterDaily("Mon")}
-          handleCheck={handleCheck}
-          isChecked={isChecked}
-        />
+      <DayHeader day={"Monday"} />
+      <List
+        actions={filterDaily("Mon")}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
 
-        <DayHeader day={"Tuesday"} />
-        <List
-          actions={filterDaily("Tue")}
-          handleCheck={handleCheck}
-          isChecked={isChecked}
-        />
+      <DayHeader day={"Tuesday"} />
+      <List
+        actions={filterDaily("Tue")}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
 
-        <DayHeader day={"Wednesday"} />
-        <List
-          actions={filterDaily("Wed")}
-          handleCheck={handleCheck}
-          isChecked={isChecked}
-        />
+      <DayHeader day={"Wednesday"} />
+      <List
+        actions={filterDaily("Wed")}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
 
-        <DayHeader day={"Thursday"} />
-        <List
-          actions={filterDaily("Thu")}
-          handleCheck={handleCheck}
-          isChecked={isChecked}
-        />
+      <DayHeader day={"Thursday"} />
+      <List
+        actions={filterDaily("Thu")}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
 
-        <DayHeader day={"Friday"} />
-        <List
-          actions={filterDaily("Fri")}
-          handleCheck={handleCheck}
-          isChecked={isChecked}
-        />
+      <DayHeader day={"Friday"} />
+      <List
+        actions={filterDaily("Fri")}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
 
-        <DayHeader day={"Saturday"} />
-        <List
-          actions={filterDaily("Sat")}
-          handleCheck={handleCheck}
-          isChecked={isChecked}
-        />
-      </div>
-    )
+      <DayHeader day={"Saturday"} />
+      <List
+        actions={filterDaily("Sat")}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
+    </div>
+  ) : (
+    <h1>No Scheduled Actions this Week!</h1>
   );
 };
 

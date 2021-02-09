@@ -5,13 +5,13 @@ import BraindumpList from "../../components/braindump/List";
 import {useApp} from '../../AppProvider'
 
 const BraindumpView = () => {
+  const {useAuth, useBraindump} = useApp();
+  const { create } = useBraindump
+  const {token} = useAuth
 
-  const {useBraindump} = useApp();
-  const { create, deleteById} = useBraindump
-  
   const handleKeyPress = (e) => {
     if (e.key == "Enter" && e.target.value.length) {
-      create({}, e.target.value)
+      create(token, {}, e.target.value)
       e.preventDefault();
       e.target.value = "";
     }
@@ -20,7 +20,7 @@ const BraindumpView = () => {
     <div className="process-view-main">
       <h1>Braindump</h1>
       <TextInput keyPress={handleKeyPress} />
-      <BraindumpList deleteById={deleteById} />
+      <BraindumpList />
     </div>
   );
 };

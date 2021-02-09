@@ -51,22 +51,19 @@ const DetailsCard = ({ check, data }) => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
 
-  const { useAction } = useApp();
+  const { useAuth, useAction } = useApp();
+  const { token } = useAuth;
   const { deleteById, setAction } = useAction;
 
   const onDelete = () => {
-    let id = data._id;
-    deleteById(id);
+    deleteById(token, data._id);
   };
-
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleOpenEditor = () => {
     setEdit(true);
   };

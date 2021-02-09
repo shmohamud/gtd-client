@@ -8,8 +8,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {useApp} from '../../../AppProvider';
 
 export default function DeleteDialog({open, handleCloseOrCancel, id, onProcessed}) {
-const {useBraindump} = useApp()
+const {useAuth, useBraindump} = useApp()
 const {deleteById} = useBraindump
+const {token} = useAuth
 
   return (
     <div>
@@ -25,7 +26,7 @@ const {deleteById} = useBraindump
           <Button onClick={handleCloseOrCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={async ()=>{await deleteById(id); await onProcessed()}} color="primary">
+          <Button onClick={async ()=>{await deleteById(token, id); await onProcessed()}} color="primary">
             Delete
           </Button>
         </DialogActions>

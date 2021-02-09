@@ -5,12 +5,13 @@ import styles from "./index.css";
 import { useApp } from "../../AppProvider";
 
 const ProjectsView = () => {
-  const { useProject} = useApp();
-  const { projects, setProject} = useProject;
+  const { useAuth, useProject } = useApp();
+  const { token } = useAuth;
+  const { projects, setProject } = useProject;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    useProject.getAll();
+    useProject.getAll(token);
   }, []);
 
   return (
@@ -18,10 +19,7 @@ const ProjectsView = () => {
       <button color="primary" className="button" onClick={() => setOpen(true)}>
         Create New!
       </button>
-      <CreateDialog
-        open={open}
-        setOpen={setOpen}
-      />
+      <CreateDialog open={open} setOpen={setOpen} />
       <div>
         {projects.length ? (
           projects.map((proj) => (

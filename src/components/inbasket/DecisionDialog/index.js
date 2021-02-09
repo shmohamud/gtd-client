@@ -10,11 +10,14 @@ import MultistepDialog from "../../braindump/MultistepDialog";
 import DoNowModal from "../../braindump/DoNowModal";
 import CreateDialog from "../../action/CreateDialog";
 import { guidingQuestions } from "../../braindump/constants";
+import {useApp} from '../../../AppProvider';
 
-const DecisionDialog = ({ braindump }) => {
+const DecisionDialog = ({ inbasket }) => {
   const [open, setOpen] = useState(false);
   const [decisionNumber, setDecisionNumber] = useState(0);
   const [currDecision, setDecision] = useState("");
+  const {useInbasket}  = useApp()
+  const {deleteById} = useInbasket
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,7 +29,7 @@ const DecisionDialog = ({ braindump }) => {
     setDecisionNumber(0);
   };
 
-  //Once a braindump item is processed (e.g. Deleted, Incubated, Referenced) close all modals and reset all state
+  //Once a inbasket item is processed (e.g. Deleted, Incubated, Referenced) close all modals and reset all state
   const onProcessed = async () => {
     handleClose();
   };
@@ -48,7 +51,7 @@ const DecisionDialog = ({ braindump }) => {
   return (
     <div>
       <Button variant="outlined" style={{margin:"10px"}}onClick={handleClickOpen}>
-        {braindump.description}
+        {inbasket.description}
       </Button>
       <Dialog
         open={open}
@@ -58,14 +61,15 @@ const DecisionDialog = ({ braindump }) => {
         {decisionNumber === 0 && currDecision === "No" ? (
           <NotActionableDialog
             onProcessed={onProcessed}
-            braindump={braindump}
+            data={inbasket}
             clearDecision={clearDecision}
+            deleteById={deleteById}
           />
         ) : (
           ""
         )}
         {decisionNumber === 1 && currDecision === "No" ? (
-          <MultistepDialog braindump={braindump} />
+          <MultistepDialog inbasket={inbasket} />
         ) : (
           ""
         )}
@@ -75,17 +79,19 @@ const DecisionDialog = ({ braindump }) => {
           ""
         )}
         {decisionNumber === 3 && currDecision === "No" ? (
-          <CreateDialog delegate={true} braindump={braindump} onProcessed={onProcessed} />
+          <CreateDialog delegate={true} inbasket={inbasket} onProcessed={onProcessed} deleteById={deleteById}/>
         ) : (
           ""
         )}
         {decisionNumber === 4 && currDecision === "No" ? (
-          <CreateDialog onProcessed={onProcessed} braindump={braindump} />
+          <CreateDialog onProcessed={onProcessed} inbasket={inbasket} deleteById={deleteById}/>
+          
         ) : (
           ""
         )}
         {decisionNumber === 5 && currDecision === "No" ? (
-          <CreateDialog braindump={braindump} open={true} onProcessed={onProcessed} />
+          <CreateDialog data={inbasket} open={true} onProcessed={onProcessed} deleteById={deleteById} />
+          
         ) : (
           ""
         )}
@@ -93,7 +99,9 @@ const DecisionDialog = ({ braindump }) => {
           <CreateDialog
             hasDeadline={true}
             onProcessed={onProcessed}
-            braindump={braindump}
+           data={inbasket}
+           deleteById={deleteById}
+      
           />
         ) : (
           ""
@@ -101,7 +109,7 @@ const DecisionDialog = ({ braindump }) => {
 
         <DialogTitle>{guidingQuestions[decisionNumber]}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{braindump.description}</DialogContentText>
+          <DialogContentText>{inbasket.description}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => handleDecision("No")} color="primary">

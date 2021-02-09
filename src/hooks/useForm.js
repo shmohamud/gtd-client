@@ -24,7 +24,6 @@ export default function useForm(
   const handleChange = (event) => {
     let value = event.target.value;
     let name = event.target.name;
-    console.log("val: ", value, "name: ", name);
     if (validationSchema[name]) {
       let isValid = validationSchema[name](value);
       setValidity((validity) => {

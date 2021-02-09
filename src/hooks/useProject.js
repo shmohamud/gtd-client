@@ -8,9 +8,15 @@ export default function useProject() {
   const [err, setErr] = useState(null);
 
   //Get list of all projects
-  const getAll = async () => {
+  const getAll = async (token) => {
     try {
-      const response = await fetch(`${baseUrl}/projects`);
+      const response = await fetch(`${baseUrl}/projects`, {
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        }),
+      });
       const data = await response.json();
       setProjects(data);
     } catch (err) {
@@ -28,33 +34,33 @@ export default function useProject() {
     }
   };
 
-  const create = async (validity, values) => {
+  const create = async (token, validity, values) => {
     try {
       const response = await fetch(`${baseUrl}/projects`, {
         method: "POST",
-        headers: {
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
-        },
+        }),
         body: JSON.stringify(values),
       });
       const data = await response.json();
       setProjects((projects) => [...projects, data]);
-      console.log("Created project: ", data);
     } catch (err) {
       setErr(err);
     }
   };
 
-  const updateById = async (validity, values) => {
-    console.log("PROJECT: ", project);
+  const updateById = async (token, validity, values) => {
     try {
       fetch(`${baseUrl}/projects/${project._id}`, {
         method: "PATCH",
-        headers: {
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
-        },
+        }),
         body: JSON.stringify(values),
       });
       setProject((project) => Object.assign(project, values));
@@ -63,14 +69,17 @@ export default function useProject() {
     }
   };
 
-  const deleteById = async () => {
-    setProjects((projects) => [...projects.filter((p) => p._id !== project._id)]);
+  const deleteById = async (token) => {
+    setProjects((projects) => [
+      ...projects.filter((p) => p._id !== project._id),
+    ]);
     await fetch(`${baseUrl}/projects/${project._id}`, {
       method: "DELETE",
-      headers: {
+      headers: new Headers({
+        Authorization: `Bearer ${token}`,
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
-      },
+      }),
     });
   };
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function useAuth() {
   const [token, setToken] = useState([]);
+  const [me, setMe] = useState({})
   const [err, setErr] = useState(null);
 
   const signup = async (validity, values) => {
@@ -32,23 +33,44 @@ export default function useAuth() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
-        
-      })
+      });
       const data = await response.json();
-      const {accessToken} = data
-      setToken(accessToken)
+      const { accessToken } = data;
+      if (!token.length) {
+        setToken(accessToken);
+      }
+      setMe(()=>data)
     } catch (err) {
       console.log("Error: ", err);
     }
   };
 
-  const logout = () => {
-    setToken([])
-  }
+  const logout = async () => {
+    let username = me.username
+    console.log("Me: ", me, username)
+    console.log("In logout hook!!!")
+ 
+    try {
+      const response = await fetch(`${baseUrl}/logout`, {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({"username":username}),
+      });
+      const data = await response.json();
+      setToken(()=>[]);
+      setMe(()=>data)
+    } catch (err) {
+      console.log("Error: ", err);
+    }
+
+  };
 
   return {
     token: token,
-    setToken,
+    me: me,
     signup,
     login,
     logout,

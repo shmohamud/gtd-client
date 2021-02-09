@@ -13,7 +13,7 @@ const List = ({deleteById}) => {
     <div className="inbasket-container">
       <ol key={inbaskets.length}>
         {inbaskets.map((_i) => (
-          <li><DecisionDialog braindump={_i} deleteById={deleteById}/></li>
+          <li><DecisionDialog inbasket={_i} deleteById={deleteById}/></li>
         ))}
       </ol>
     </div>

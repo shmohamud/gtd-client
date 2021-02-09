@@ -14,28 +14,39 @@ export default function CreateDialog({
   data,
   hasDeadline,
   delegate,
+
 }) {
   const [open, setOpen] = useState(true);
-  const { useForm, useAction, useBraindump } = useApp();
+  const { useAuth,useBraindump,  useForm, useAction } = useApp();
+  const {token} = useAuth
   const { deleteById } = useBraindump;
   const { create } = useAction;
 
+
   const onSubmit = async (validity, values) => {
+    console.log("DATA IN CREATE DIALOG: ", data)
     if (hasDeadline === undefined) {
-      await create(values);
-      await deleteById(data._id);
+      console.log("CREATE IN ACTION: ", token, values)
+
+      await create(token, {}, values);
+      await deleteById(token, data._id);
       setOpen(false);
       return onProcessed();
     } else if (
+      
       hasDeadline &&
       values["deadline"] !== "undefined" &&
       validity["deadline"]
     ) {
-      await create(values);
-      await deleteById(data._id);
+       
+      console.log("CREATE IN ACTION: ", token, values)
+      await create(token, {}, values);
+      await deleteById(token, data._id);
       setOpen(false);
       return onProcessed();
     } else {
+      console.log("CREATE IN ACTION: ", token, values)
+
       alert(
         'Please select a deadline or go back and select "No" for "has concrete deadline" question'
       );
@@ -54,10 +65,11 @@ export default function CreateDialog({
     },
   };
 
-  const { handleChange, handleSubmit, values, setValues } = useForm(
+  const { handleChange, handleSubmit, setValues } = useForm(
     onSubmit,
     validationSchema
   );
+
   const handleClose = () => {
     setOpen(false);
   };
