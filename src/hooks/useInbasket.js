@@ -16,7 +16,6 @@ export default function useInbasket() {
         method: "GET",
         headers: new Headers({
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
       }),
       });
@@ -44,7 +43,6 @@ export default function useInbasket() {
         method: "POST",
         headers: new Headers({
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
       }),
         body: JSON.stringify(inbasket),
@@ -61,7 +59,6 @@ export default function useInbasket() {
     fetch(`${baseUrl}/inbaskets/${id}`, {
       method: "PATCH",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
@@ -74,7 +71,6 @@ export default function useInbasket() {
       method: "DELETE",
       headers: {
         'Authorization' : `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     });
