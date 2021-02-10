@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./index.css";
-import DecisionDialog from "../DecisionDialog";
+import DecisionDialog from "../../common/DecisionDialog";
 import { useApp } from "../../../AppProvider";
 
 const List = () => {
   const { useAuth, useBraindump } = useApp();
   const { token } = useAuth;
-  const { getAll, braindumps } = useBraindump;
+  const { getAll, braindumps, deleteById } = useBraindump;
   
   useEffect(() => {
     getAll(token);
@@ -22,7 +22,7 @@ const List = () => {
           }
           return (
             <li key={braindump._id}>
-              <DecisionDialog braindump={braindump} disabled={disabled} />
+              <DecisionDialog data={braindump} disabled={disabled} deleteById={deleteById} />
             </li>
           );
         })}

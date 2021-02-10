@@ -25,15 +25,16 @@ export default function useReference() {
     }
   };
 
-  const create = async (values, urls) => {
+  const create = async (token, validity, values, urls) => {
       values.urls = urls
     try {
       const response = await fetch(`${baseUrl}/references`, {
         method: "POST",
-        headers: {
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
-        },
+        }),
         body: JSON.stringify(values),
       });
       const data = await response.json();
@@ -53,13 +54,14 @@ export default function useReference() {
     });
   };
 
-  const deleteById = async (id) => {
+  const deleteById = async (token, id) => {
     await fetch(`${baseUrl}/references/${id}`, {
       method: "DELETE",
-      headers: {
+      headers: new Headers({
+        Authorization: `Bearer ${token}`,
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
-      },
+      }),
     });
 
   };

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
+import {useApp} from '../../../AppProvider';
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -14,6 +17,8 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
+    display:"flex",
+    flexDirection:"column"
   };
 }
 
@@ -26,12 +31,16 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  button: {
+
+  }
 }));
 
-const DoNowModal = ({ initial }) => {
-//Only rendered in DecisionDialog (parent) if the given braindump item takes < 2m to complete. If it's rendered, it should start open.
+const DoNowModal = ({ initialTime, data, deleteById, decrementDecisionNumber }) => {
   const [open, setOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(initial);
+  const [timeLeft, setTimeLeft] = useState(initialTime);
+  const {useAuth} = useApp()
+  const{token} = useAuth
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(timeLeft - 1);
@@ -43,7 +52,7 @@ const DoNowModal = ({ initial }) => {
   const [modalStyle] = useState(getModalStyle);
 
   const handleClose = () => {
-    setOpen(false);
+    decrementDecisionNumber()
   };
   const formatTime = () => {
     const date = new Date(0);
@@ -52,10 +61,15 @@ const DoNowModal = ({ initial }) => {
     return timeString;
   };
 
+  const onDone = () => {
+    deleteById(token, data._id)
+  }
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Do it now!</h2>
       <p id="simple-modal-description">Time Left: {formatTime(timeLeft)} </p>
+      <Button style={{alignContent:"center"}} color="primary" variant="contained" onClick={onDone}>Done!</Button>
     </div>
   );
 

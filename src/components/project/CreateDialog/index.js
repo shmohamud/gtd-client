@@ -7,16 +7,24 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DateAndTimePickers from "../../common/DateAndTimePickers";
+import swal from '@sweetalert/with-react';
 import { useApp } from "../../../AppProvider";
 
 const CreateDialog = ({ open, setOpen }) => {
-  const { useProject, useForm } = useApp();
+  const { useAuth, useProject, useForm } = useApp();
+  const{token} = useAuth
   const { create } = useProject;
-  const { handleChange, handleSubmit } = useForm(create);
+
+  const onSubmit = async (validity, values) => {
+    console.log("TOKEN IN ON SUBMIT CREATE PROJECT DIALOG: ", token)
+    create(token, {}, values)
+  }
+  const { handleChange, handleSubmit } = useForm(onSubmit);
 
   const handleClose = () => {
     setOpen(false);
   };
+
 
   return (
     <div>
@@ -58,6 +66,11 @@ const CreateDialog = ({ open, setOpen }) => {
           <Button
             onClick={async (e) => {
               await handleSubmit(e);
+              swal(
+                <div>
+                  <h1>Project Created!</h1>
+                </div>
+              )
               return handleClose();
             }}
             color="secondary"

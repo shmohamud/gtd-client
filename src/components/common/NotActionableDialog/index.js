@@ -7,7 +7,7 @@ import IncubateDialog from "../../incubate/CreateDialog";
 import DeleteDialog from "../DeleteDialog";
 import ReferenceDialog from "../../reference/CreateDialog";
 
-const NotActionableDialog = ({ data, clearDecision, onProcessed}) => {
+const NotActionableDialog = ({ data, clearDecision, deleteById}) => {
   const [open, setOpen] = useState(true);
   const [openDialog, setOpenDialog] = useState("");
 
@@ -45,7 +45,7 @@ const NotActionableDialog = ({ data, clearDecision, onProcessed}) => {
             open={openDialog === "DELETE"}
             handleCloseOrCancel={handleCloseOrCancel}
             id={data._id}
-            onProcessed={onProcessed}
+            deleteById={deleteById}
           />
           <Button
             variant="outlined"
@@ -58,7 +58,7 @@ const NotActionableDialog = ({ data, clearDecision, onProcessed}) => {
             open={openDialog === "INCUBATE"}
             handleCloseOrCancel={handleCloseOrCancel}
             id={data._id}
-            onProcessed={onProcessed}
+            deleteById={deleteById}
           />
           <Button
             variant="outlined"
@@ -71,7 +71,7 @@ const NotActionableDialog = ({ data, clearDecision, onProcessed}) => {
             open={openDialog === "REFERENCE"}
             handleCloseOrCancel={handleCloseOrCancel}
             id={data._id}
-            onProcessed={onProcessed}
+            deleteById={deleteById}
           />
         </DialogActions>
       </Dialog>

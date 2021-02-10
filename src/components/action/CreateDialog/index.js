@@ -7,46 +7,44 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DateAndTimePickers from "../../common/DateAndTimePickers";
+import swal from "@sweetalert/with-react";
 import { useApp } from "../../../AppProvider";
 
 export default function CreateDialog({
-  onProcessed,
   data,
   hasDeadline,
   delegate,
-
+  decrementDecisionNumber,
+  deleteById
 }) {
   const [open, setOpen] = useState(true);
-  const { useAuth,useBraindump,  useForm, useAction } = useApp();
+  const { useAuth, useForm, useAction } = useApp();
   const {token} = useAuth
-  const { deleteById } = useBraindump;
   const { create } = useAction;
 
 
   const onSubmit = async (validity, values) => {
-    console.log("DATA IN CREATE DIALOG: ", data)
     if (hasDeadline === undefined) {
-      console.log("CREATE IN ACTION: ", token, values)
-
       await create(token, {}, values);
+      swal(
+        <div>
+          <h1>Action Created!</h1>
+        </div>
+      )
       await deleteById(token, data._id);
-      setOpen(false);
-      return onProcessed();
     } else if (
-      
       hasDeadline &&
       values["deadline"] !== "undefined" &&
       validity["deadline"]
     ) {
-       
-      console.log("CREATE IN ACTION: ", token, values)
       await create(token, {}, values);
+      swal(
+        <div>
+          <h1>Action Created!</h1>
+        </div>
+      )
       await deleteById(token, data._id);
-      setOpen(false);
-      return onProcessed();
     } else {
-      console.log("CREATE IN ACTION: ", token, values)
-
       alert(
         'Please select a deadline or go back and select "No" for "has concrete deadline" question'
       );
@@ -71,7 +69,8 @@ export default function CreateDialog({
   );
 
   const handleClose = () => {
-    setOpen(false);
+    console.log("DECREMENT DECISION NUMBER")
+    decrementDecisionNumber()
   };
 
   useEffect(() => {

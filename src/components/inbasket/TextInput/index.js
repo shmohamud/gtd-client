@@ -8,8 +8,12 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
       width: "25ch",
-    },
+    }
   },
+  inputLabel: {
+         marginLeft:"25%"
+  
+  }
 }));
 
 const TextInput = ({ keyPress }) => {
@@ -28,6 +32,9 @@ const TextInput = ({ keyPress }) => {
         id="inbasket-item"
         name="inbasket-item"
         label="Add Basket Item"
+        InputLabelProps={{
+          className: classes.inputLabel
+        }}
       />
     </form>
   );

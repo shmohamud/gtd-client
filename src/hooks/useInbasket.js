@@ -9,9 +9,17 @@ export default function useInbasket() {
   const [err, setErr] = useState(null);
 
   //Get list of all inbaskets
-  const getAll = async () => {
+  const getAll = async (token) => {
+    console.log("TOKEN IN GET ALL INBASKET: ", token)
     try {
-      const response = await fetch(`${baseUrl}/inbaskets`);
+      const response = await fetch(`${baseUrl}/inbaskets`, {
+        method: "GET",
+        headers: new Headers({
+          'Authorization' : `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+      }),
+      });
       const data = await response.json();
       setInbaskets(data);
     } catch (err) {
@@ -29,16 +37,17 @@ export default function useInbasket() {
     }
   };
 
-  const create = async (valdity, values) => {
-    const description = values
+  const create = async (token, valdity, values) => {
+    const inbasket = {description: values}
     try {
       const response = await fetch(`${baseUrl}/inbaskets`, {
         method: "POST",
-        headers: {
+        headers: new Headers({
+          'Authorization' : `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({description}),
+          "Content-Type": "application/json"
+      }),
+        body: JSON.stringify(inbasket),
       });
       const data = await response.json();
       setInbaskets((inbaskets)=>[...inbaskets, data])
@@ -59,11 +68,12 @@ export default function useInbasket() {
     });
   };
 
-  const deleteById = async (id) => {
+  const deleteById = async (token, id) => {
     setInbaskets((inbaskets)=> [...inbaskets.filter(p => p._id !== id)])
     await fetch(`${baseUrl}/inbaskets/${id}`, {
       method: "DELETE",
       headers: {
+        'Authorization' : `Bearer ${token}`,
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },

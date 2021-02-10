@@ -5,15 +5,17 @@ import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
+import swal from "@sweetalert/with-react";
+import styles from "./index.css";
 import EditDialog from "../EditDialog";
 import { useApp } from "../../../AppProvider";
-import styles from "./index.css";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     float: "left",
     margin: "10px 10px 10px 10px",
+    paddingTop:"20px"
   },
   bullet: {
     display: "inline-block",
@@ -45,7 +47,8 @@ const useStyles = makeStyles({
 const DetailsCard = ({ data, select }) => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
-  const { useProject } = useApp();
+  const { useAuth, useProject } = useApp();
+  const {token} = useAuth
   const { project, setProject, deleteById } = useProject;
   useEffect(() => {
     setProject(data);
@@ -87,7 +90,11 @@ const DetailsCard = ({ data, select }) => {
           Edit Project
         </Button>
         <EditDialog open={edit} handleClose={handleClose} />
-        <Button variant="outlined" color="primary" onClick={async ()=>{deleteById(); select({}); return handleClose()}}>
+        <Button variant="outlined" color="primary" onClick={async ()=>{deleteById(token); swal(
+                <div>
+                  <h1>Project Deleted!</h1>
+                </div>
+              ); return handleClose()}}>
           Delete Project
         </Button>
       </div>

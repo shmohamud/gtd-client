@@ -17,7 +17,7 @@ const BraindumpView = () => {
     }
   };
   return (
-    <div className="process-view-main">
+    <div className="braindump-view-container">
       <h1>Braindump</h1>
       <TextInput keyPress={handleKeyPress} />
       <BraindumpList />

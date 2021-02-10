@@ -6,12 +6,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import swal from '@sweetalert/with-react'
 import { useApp } from "../../../AppProvider";
 
 const CreateDialog = ({ open, setOpen }) => {
   const { useAuth, useForm } = useApp();
   const { signup } = useAuth;
-  const { handleChange, handleSubmit } = useForm(signup);
+  const { handleChange, handleSubmit, values } = useForm(signup);
 
   const handleClose = () => {
     setOpen(false);
@@ -83,6 +84,12 @@ const CreateDialog = ({ open, setOpen }) => {
           <Button
             onClick={async (e) => {
               await handleSubmit(e);
+              swal(
+                <div>
+                  <h1>Sign up success!</h1>
+                  <p> Welcome to Metacognizer {values["firstname"]}. Login to get started.</p>
+                </div>
+              )
               return handleClose();
             }}
             color="primary"

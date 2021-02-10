@@ -5,28 +5,31 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import swal from "@sweetalert/with-react";
 import {useApp} from '../../../AppProvider';
 
-export default function DeleteDialog({open, handleCloseOrCancel, id, onProcessed}) {
-const {useAuth, useBraindump} = useApp()
-const {deleteById} = useBraindump
+export default function DeleteDialog({open, handleCloseOrCancel, id, deleteById}) {
+const {useAuth } = useApp()
 const {token} = useAuth
 
   return (
     <div>
-      
       <Dialog open={open} onClose={handleCloseOrCancel} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Delete Braindump Item?</DialogTitle>
+        <DialogTitle id="form-dialog-title">Delete this item?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Click Delete to throw this braindump item away.
+            Click Delete to throw this away.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseOrCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={async ()=>{await deleteById(token, id); await onProcessed()}} color="primary">
+          <Button onClick={async ()=> {await deleteById(token, id); swal(
+        <div>
+          <h1>Delete Success!</h1>
+        </div>
+      )}} color="primary">
             Delete
           </Button>
         </DialogActions>

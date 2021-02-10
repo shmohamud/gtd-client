@@ -9,9 +9,16 @@ export default function useIncubate() {
   const [err, setErr] = useState(null);
 
   //Get list of all incubates
-  const getAll = async () => {
+  const getAll = async (token) => {
     try {
-      const response = await fetch(`${baseUrl}/incubates`);
+      const response = await fetch(`${baseUrl}/incubates`, {
+        method: "GET",
+        headers: {
+          'Authorization' : `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
       setIncubates(data);
     } catch (err) {
@@ -29,13 +36,14 @@ export default function useIncubate() {
     }
   };
 
-  const create = async (values, urls) => {
+  const create = async (token, validity, values, urls) => {
     debugger
       values.urls = urls
     try {
       const response = await fetch(`${baseUrl}/incubates`, {
         method: "POST",
         headers: {
+          'Authorization' : `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },

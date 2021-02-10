@@ -8,13 +8,19 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import UrlInput from "../UrlInput";
 import NoteInput from "../NoteInput";
+import swal from "@sweetalert/with-react";
 import { useApp } from "../../../AppProvider";
 
-export default function CreateDialog({ open, handleCloseOrCancel, id, onProcessed}) {
+export default function CreateDialog({
+  open,
+  handleCloseOrCancel,
+  id,
+  deleteById,
+}) {
   const [urls, setUrls] = useState([]);
-  const { useForm, useReference, useBraindump } = useApp();
+  const { useAuth, useForm, useReference } = useApp();
+  const { token } = useAuth;
   const { create } = useReference;
-  const { deleteById } = useBraindump;
   const { handleChange, values } = useForm(create);
 
   return (
@@ -42,7 +48,15 @@ export default function CreateDialog({ open, handleCloseOrCancel, id, onProcesse
             Cancel
           </Button>
           <Button
-            onClick={async () => {create(values, urls); deleteById(id); onProcessed()}}
+            onClick={async () => {
+              await create(token, {}, values, urls);
+              swal(
+                <div>
+                  <h1>Reference Created!</h1>
+                </div>
+              );
+              await deleteById(token, id);
+            }}
             color="primary"
           >
             Reference

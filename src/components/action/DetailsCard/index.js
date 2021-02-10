@@ -113,7 +113,7 @@ const DetailsCard = ({ check, data }) => {
           </Typography>
           <Typography className={classes.pos} color="secondary">
             {data.deadline !== undefined
-              ? new Date(data.deadline).toUTCString()
+              ? new Date(data.deadline).toLocaleDateString()
               : ""}
           </Typography>
           <Typography variant="body2" component="p">

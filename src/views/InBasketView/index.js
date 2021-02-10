@@ -5,22 +5,22 @@ import InbasketList from "../../components/inbasket/List";
 import TextInput from "../../components/inbasket/TextInput";
 
 const InBasketView = () => {
-  const { useInbasket } = useApp();
-  const { create, deleteById } = useInbasket;
+  const { useAuth, useInbasket } = useApp();
+  const {token} = useAuth
+  const { create } = useInbasket;
 
   const handleKeyPress = (e) => {
     if (e.key == "Enter" && e.target.value.length) {
-      const { name, value } = e.target;
-      create({}, e.target.value);
+      create(token, {}, e.target.value);
       e.preventDefault();
       e.target.value = "";
     }
   };
   return (
-    <div className="process-view-main">
+    <div className="inbasket-view-container">
       <h1>In Basket</h1>
       <TextInput keyPress={handleKeyPress} />
-      <InbasketList deleteById={deleteById} />
+      <InbasketList />
     </div>
   );
 };

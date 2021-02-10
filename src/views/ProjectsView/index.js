@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DashboardCard from "../../components/project/DashboardCard";
 import CreateDialog from "../../components/project/CreateDialog";
+import CreateIcon from '@material-ui/icons/Create';
 import styles from "./index.css";
 import { useApp } from "../../AppProvider";
 
@@ -16,9 +17,7 @@ const ProjectsView = () => {
 
   return (
     <div className="projects-view-main">
-      <button color="primary" className="button" onClick={() => setOpen(true)}>
-        Create New!
-      </button>
+        <CreateIcon style={{float:"right"}}fontSize="large" onClick={()=>setOpen(true)}/><span style={{float:"right", fontSize: "20px",fontWeight:"700"}}>(create)</span>
       <CreateDialog open={open} setOpen={setOpen} />
       <div>
         {projects.length ? (

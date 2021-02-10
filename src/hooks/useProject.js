@@ -35,6 +35,7 @@ export default function useProject() {
   };
 
   const create = async (token, validity, values) => {
+    console.log("TOKEN: ", token, "VALUES: ", values)
     try {
       const response = await fetch(`${baseUrl}/projects`, {
         method: "POST",

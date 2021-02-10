@@ -5,13 +5,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import NotActionableDialog from "../../braindump/NotActionableDialog";
+import NotActionableDialog from "../NotActionableDialog";
 import MultistepDialog from "../MultistepDialog";
 import DoNowModal from "../DoNowModal";
 import CreateDialog from "../../action/CreateDialog";
 import { guidingQuestions } from "../constants";
 
-const DecisionDialog = ({ braindump, disabled }) => {
+const DecisionDialog = ({ data, deleteById, disabled }) => {
   const [open, setOpen] = useState(false);
   const [decisionNumber, setDecisionNumber] = useState(0);
   const [currDecision, setDecision] = useState("");
@@ -26,9 +26,13 @@ const DecisionDialog = ({ braindump, disabled }) => {
     setDecisionNumber(0);
   };
 
-  //Once a braindump item is processed (e.g. Deleted, Incubated, Referenced) close all modals and reset all state
-  const onProcessed = async () => {
-    handleClose();
+  const getPreviousStep = () => {
+    clearDecision();
+    decrementDecisionNumber();
+  };
+
+  const decrementDecisionNumber = () => {
+    setDecisionNumber((number) => number - 1);
   };
 
   const clearDecision = () => {
@@ -46,9 +50,9 @@ const DecisionDialog = ({ braindump, disabled }) => {
   };
 
   return (
-    <div style={{margin:"10px"}}>
+    <div style={{ margin: "10px" }}>
       <Button variant="outlined" disabled={disabled} onClick={handleClickOpen}>
-        {braindump.description}
+        {data.description}
       </Button>
       <Dialog
         open={open}
@@ -57,43 +61,70 @@ const DecisionDialog = ({ braindump, disabled }) => {
       >
         {decisionNumber === 0 && currDecision === "No" ? (
           <NotActionableDialog
-            onProcessed={onProcessed}
-            data={braindump}
+            data={data}
             clearDecision={clearDecision}
+            deleteById={deleteById}
+            getPreviousStep={getPreviousStep}
           />
         ) : (
           ""
         )}
         {decisionNumber === 1 && currDecision === "No" ? (
-          <MultistepDialog data={braindump} />
+          <MultistepDialog
+            open={decisionNumber === 1 && currDecision === "No"}
+            setOpen={setOpen}
+            data={data}
+            deleteById={deleteById}
+            getPreviousStep={getPreviousStep}
+          />
         ) : (
           ""
         )}
         {decisionNumber === 2 && currDecision === "No" ? (
-          <DoNowModal initial={180} />
+          <DoNowModal
+            initialTime={180}
+            data={data}
+            deleteById={deleteById}
+            getPreviousStep={getPreviousStep}
+          />
         ) : (
           ""
         )}
         {decisionNumber === 3 && currDecision === "No" ? (
-          <CreateDialog delegate={true} data={braindump} onProcessed={onProcessed} />
+          <CreateDialog
+            data={data}
+            delegate={true}
+            deleteById={deleteById}
+            getPreviousStep={getPreviousStep}
+          />
         ) : (
           ""
         )}
         {decisionNumber === 4 && currDecision === "No" ? (
-          <CreateDialog onProcessed={onProcessed} data={braindump} />
+          <CreateDialog
+            data={data}
+            deleteById={deleteById}
+            getPreviousStep={getPreviousStep}
+          />
         ) : (
           ""
         )}
         {decisionNumber === 5 && currDecision === "No" ? (
-          <CreateDialog data={braindump} open={true} onProcessed={onProcessed} />
+          <CreateDialog
+            data={data}
+            open={true}
+            deleteById={deleteById}
+            getPreviousStep={getPreviousStep}
+          />
         ) : (
           ""
         )}
         {decisionNumber === 5 && currDecision === "Yes" ? (
           <CreateDialog
+            data={data}
             hasDeadline={true}
-            onProcessed={onProcessed}
-            data={braindump}
+            deleteById={deleteById}
+            getPreviousStep={getPreviousStep}
           />
         ) : (
           ""
@@ -101,7 +132,7 @@ const DecisionDialog = ({ braindump, disabled }) => {
 
         <DialogTitle>{guidingQuestions[decisionNumber]}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{braindump.description}</DialogContentText>
+          <DialogContentText>{data.description}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => handleDecision("No")} color="primary">
