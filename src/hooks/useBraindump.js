@@ -12,7 +12,6 @@ export default function useBraindump() {
       const response = await fetch(`${baseUrl}/braindumps`, {
         headers: new Headers({
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         }), 
       });
@@ -42,7 +41,6 @@ export default function useBraindump() {
         method: "POST",
         headers: new Headers({
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         }),
         body: JSON.stringify(dump),
@@ -56,13 +54,11 @@ export default function useBraindump() {
   };
 
   const deleteById = async (token, id) => {
-    console.log("TOKEN: ", token, "ID IN DELETE BY ID: ", id)
     try {
       await fetch(`${baseUrl}/braindumps/${id}`, {
         method: "DELETE",
         headers: {
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         },
       });

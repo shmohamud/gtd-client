@@ -12,7 +12,6 @@ export default function useAuth() {
       const response = await fetch(`${baseUrl}/signup`, {
         method: "POST",
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
@@ -29,7 +28,6 @@ export default function useAuth() {
       const response = await fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
@@ -54,7 +52,6 @@ export default function useAuth() {
       const response = await fetch(`${baseUrl}/logout`, {
         method: "POST",
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({"username":username}),

@@ -13,7 +13,6 @@ export default function useProject() {
       const response = await fetch(`${baseUrl}/projects`, {
         headers: new Headers({
           Authorization: `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         }),
       });
@@ -41,7 +40,6 @@ export default function useProject() {
         method: "POST",
         headers: new Headers({
           Authorization: `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         }),
         body: JSON.stringify(values),
@@ -59,7 +57,6 @@ export default function useProject() {
         method: "PATCH",
         headers: new Headers({
           Authorization: `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         }),
         body: JSON.stringify(values),
@@ -78,7 +75,6 @@ export default function useProject() {
       method: "DELETE",
       headers: new Headers({
         Authorization: `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       }),
     });

@@ -32,7 +32,6 @@ export default function useReference() {
         method: "POST",
         headers: new Headers({
           Authorization: `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         }),
         body: JSON.stringify(values),
@@ -47,7 +46,6 @@ export default function useReference() {
     fetch(`${baseUrl}/references/${id}`, {
       method: "PATCH",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
@@ -59,7 +57,6 @@ export default function useReference() {
       method: "DELETE",
       headers: new Headers({
         Authorization: `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       }),
     });

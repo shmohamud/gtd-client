@@ -14,7 +14,6 @@ export default function useAction() {
       const response = await fetch(`${baseUrl}/actions`, {
         headers: new Headers({
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         }), 
       });
@@ -67,7 +66,6 @@ export default function useAction() {
         method: "POST",
         headers: {
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         },
         body: JSON.stringify(values),
@@ -85,7 +83,6 @@ export default function useAction() {
       fetch(`${baseUrl}/actions/${action._id || values._id}`, {
         method: "PATCH",
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         },
         body: JSON.stringify(values),
@@ -113,7 +110,6 @@ export default function useAction() {
         method: "DELETE",
         headers: {
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         },
       });

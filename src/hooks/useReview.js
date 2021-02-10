@@ -33,7 +33,6 @@ export default function useReview() {
       const response = await fetch(`${baseUrl}/reviews`, {
         method: "POST",
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
@@ -50,7 +49,6 @@ export default function useReview() {
     fetch(`${baseUrl}/reviews/${id}`, {
       method: "PATCH",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
@@ -62,7 +60,6 @@ export default function useReview() {
     await fetch(`${baseUrl}/reviews/${id}`, {
       method: "DELETE",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     });

@@ -15,7 +15,6 @@ export default function useIncubate() {
         method: "GET",
         headers: {
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
       });
@@ -44,7 +43,6 @@ export default function useIncubate() {
         method: "POST",
         headers: {
           'Authorization' : `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
@@ -61,7 +59,6 @@ export default function useIncubate() {
     fetch(`${baseUrl}/incubates/${id}`, {
       method: "PATCH",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
@@ -73,7 +70,6 @@ export default function useIncubate() {
     await fetch(`${baseUrl}/incubates/${id}`, {
       method: "DELETE",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     });
