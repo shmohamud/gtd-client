@@ -10,7 +10,8 @@ import { useApp } from "../../../AppProvider";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-  },
+    maxWidth: "40%" 
+   },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
@@ -22,6 +23,9 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  div: {
+    padding: "2rem 2rem 0 2rem"
+  }
 });
 
 export default function LoginCard() {
@@ -33,7 +37,7 @@ export default function LoginCard() {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div>
+    <div className={classes.div}>
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <form id="login" onSubmit={handleSubmit} onChange={handleChange} >
