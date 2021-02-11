@@ -14,7 +14,7 @@ const MultistepDialog = ({
   open,
   setOpen,
   data,
-  clearDecision,
+  getPreviousStep,
   deleteById,
 }) => {
   const { useAuth, useProject, useForm } = useApp();
@@ -47,7 +47,7 @@ const MultistepDialog = ({
   const { handleChange, handleSubmit } = useForm(onSubmit, validationSchema);
 
   const handleClose = () => {
-    clearDecision();
+    getPreviousStep();
     setOpen(false);
   };
 

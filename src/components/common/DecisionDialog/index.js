@@ -27,16 +27,12 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
   };
 
   const getPreviousStep = () => {
-    clearDecision();
     decrementDecisionNumber();
+    setDecision("")
   };
 
   const decrementDecisionNumber = () => {
     setDecisionNumber((number) => number - 1);
-  };
-
-  const clearDecision = () => {
-    setDecision("");
   };
 
   const handleDecision = (decision) => {
@@ -62,7 +58,6 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
         {decisionNumber === 0 && currDecision === "No" ? (
           <NotActionableDialog
             data={data}
-            clearDecision={clearDecision}
             deleteById={deleteById}
             getPreviousStep={getPreviousStep}
           />

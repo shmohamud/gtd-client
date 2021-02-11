@@ -75,7 +75,7 @@ const CreateDialog = ({ open, setOpen }) => {
             margin="dense"
             id="password"
             label="New password"
-            type="text"
+            type="password"
             fullWidth={true}
             variant="filled"
           />

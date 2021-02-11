@@ -7,7 +7,7 @@ import IncubateDialog from "../../incubate/CreateDialog";
 import DeleteDialog from "../DeleteDialog";
 import ReferenceDialog from "../../reference/CreateDialog";
 
-const NotActionableDialog = ({ data, clearDecision, deleteById}) => {
+const NotActionableDialog = ({ data, getPreviousStep, deleteById}) => {
   const [open, setOpen] = useState(true);
   const [openDialog, setOpenDialog] = useState("");
 
@@ -17,7 +17,7 @@ const NotActionableDialog = ({ data, clearDecision, deleteById}) => {
 
   const handleClose = () => {
     setOpenDialog("");
-    clearDecision();
+    getPreviousStep();
     setOpen(false);
   };
 
