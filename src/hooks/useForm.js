@@ -10,34 +10,41 @@ export default function useForm(
 ) {
   const [values, setValues] = useState({});
   const [validity, setValidity] = useState({});
-  const [err, setErr] = useState(null);
+  const [errs, setErrs] = useState({});
 
-  const handleSubmit = (event) => {  
+  const handleSubmit = (event) => {
     event.preventDefault();
     try {
       onSubmit(validity, values);
     } catch (err) {
-      setErr(err);
+      setErrs((errs) => {
+        return { ...errs, responseErr: err };
+      });
     }
   };
 
   const handleChange = (event) => {
-    let value = event.target.value;
+    let value = event.target.value.trim();
     let name = event.target.name;
     if (validationSchema[name]) {
       let isValid = validationSchema[name](value);
       setValidity((validity) => {
         return { ...validity, [name]: isValid };
       });
-      event.target.setCustomValidity(isValid ? "" : "is invalid");
+      isValid ? errs && clearErr(name): setErrs((errs) => {
+            console.log("Invalid errs in handle change!: ", errs);
+            return { ...errs, [name]: "is invalid" };
+          });
     }
     setValues((values) => {
       return { ...values, [name]: value };
     });
   };
 
-  const clearErr = async () => {
-    setErr(null);
+  const clearErr = async (name) => {
+    let res = Object.assign({}, errs);
+    delete res[name];
+    setErrs(() => res);
   };
 
   return {
@@ -46,7 +53,7 @@ export default function useForm(
     values,
     setValues,
     validity,
-    err,
+    errs,
     clearErr,
   };
 }

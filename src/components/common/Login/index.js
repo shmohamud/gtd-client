@@ -10,8 +10,8 @@ import { useApp } from "../../../AppProvider";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    maxWidth: "40%" 
-   },
+    maxWidth: "40%",
+  },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
@@ -24,8 +24,20 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
   div: {
-    padding: "2rem 2rem 0 2rem"
-  }
+    padding: "2rem 2rem 2rem 2rem",
+    display: "flex",
+    justifyContent: "center",
+  },
+  loginBtn: {
+    backgroundColor: "royalblue",
+    "&:hover": {
+      backgroundColor: "#7286c2",
+    },
+    fontFamily: "serif",
+  },
+  label: {
+    fontFamily: "serif",
+  },
 });
 
 export default function LoginCard() {
@@ -34,19 +46,18 @@ export default function LoginCard() {
   const { handleChange, handleSubmit } = useForm(login);
 
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <div className={classes.div}>
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <form id="login" onSubmit={handleSubmit} onChange={handleChange} >
+          <form id="login" onSubmit={handleSubmit} onChange={handleChange}>
             <TextField
               autoFocus={true}
               name="username"
               margin="dense"
               id="username"
-              label="User name"
+              label="Username"
               type="text"
               fullWidth={true}
               variant="filled"
@@ -56,19 +67,23 @@ export default function LoginCard() {
               name="password"
               margin="dense"
               id="password"
-              label="New password"
-              type="text"
+              label="Password"
+              type="password"
               fullWidth={true}
               variant="filled"
             />
-            <Button type="submit" variant="contained" color="primary" size="medium">
-            Login
-          </Button>
+            <Button
+              className={classes.loginBtn}
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="medium"
+            >
+              Login
+            </Button>
           </form>
         </CardContent>
-        <CardActions>
-       
-        </CardActions>
+        <CardActions></CardActions>
       </Card>
     </div>
   );

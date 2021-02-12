@@ -8,10 +8,22 @@ const LandingView = () => {
   return (
     <>
       <Logo />
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <AppBlurb/>
-        <Login />
-        <Signup />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <AppBlurb />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Login />
+          <Signup />
+        </div>
       </div>
     </>
   );
