@@ -46,10 +46,38 @@ const validationSchema = {
 
 const CreateDialog = ({ open, setOpen }) => {
   const { useAuth, useForm } = useApp();
-  const { signup } = useAuth;
+  const { signup, err } = useAuth;
+
+  const onSubmit = async (validity, values) => {
+    try {
+      await signup(validity, values);
+      console.log("Error in onSubmit: ", err);
+      swal(
+        <div>
+          <h1>Sign up success!</h1>
+          <p>
+            Welcome to Metacognizer, {values["firstname"]}! Login to get
+            started.
+          </p>
+        </div>
+      );
+      setOpen(false);
+    } catch (err) {
+      console.log("Error after signup runs!: ", err);
+      return swal(
+        <div>
+          <h1>Sign up failure!</h1>
+          <p>
+            {`${JSON.stringify(err.message.keyValue)} is already taken. Please update and try again.`}
+          </p>
+        </div>
+      );
+    }
+  };
+
   const [disabled, setDisabled] = useState(true);
   const { handleChange, handleSubmit, values, errs } = useForm(
-    signup,
+    onSubmit,
     validationSchema
   );
 
@@ -59,11 +87,12 @@ const CreateDialog = ({ open, setOpen }) => {
     } else {
       setDisabled(true);
     }
-  }, [errs]);
+  }, [err, errs]);
 
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <div>
       <Dialog
@@ -72,18 +101,8 @@ const CreateDialog = ({ open, setOpen }) => {
         aria-labelledby="form-dialog-title"
       >
         <form
-          onSubmit={(e) => {
-            handleSubmit(e, values);
-            handleClose();
-            swal(
-              <div>
-                <h1>Sign up success!</h1>
-                <p>
-                  Welcome to Metacognizer, {values["firstname"]}! Login to get
-                  started.
-                </p>
-              </div>
-            );
+          onSubmit={async (e) => {
+            handleSubmit(e);
           }}
         >
           <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>

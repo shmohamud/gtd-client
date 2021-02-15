@@ -1,26 +1,27 @@
 import React from "react";
 import baseUrl from "./baseUrl";
+import CustomException from "../utils/CustomException";
 import { useState } from "react";
 
 export default function useAuth() {
   const [token, setToken] = useState([]);
   const [me, setMe] = useState({});
-  const [err, setErr] = useState(null);
+  const [err, setErr] = useState({});
 
   const signup = async (validity, values) => {
-    try {
-      const response = await fetch(`${baseUrl}/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (err) {
-      setErr(err);
+    const response = await fetch(`${baseUrl}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return;
     }
+    setErr(() => Object.assign({}, data.error));
+    throw new CustomException(data.error);
   };
 
   const login = async (validity, values) => {
@@ -33,10 +34,8 @@ export default function useAuth() {
         body: JSON.stringify(values),
       });
       const data = await response.json();
-      const { accessToken } = data;
-      if (!token.length) {
-        setToken(accessToken);
-      }
+      const { accessToken } = data || "";
+      setToken(accessToken);
       setMe(() => data);
     } catch (err) {
       console.log("Error: ", err);

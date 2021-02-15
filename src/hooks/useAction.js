@@ -60,7 +60,6 @@ export default function useAction() {
   };
 
   const create = async (token, validity, values) => {
-    console.log("Creating an action, token value is: ", token)
     try {
       const response = await fetch(`${baseUrl}/actions`, {
         method: "POST",

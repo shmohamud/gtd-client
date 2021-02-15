@@ -12,13 +12,13 @@ export default function useForm(
   const [validity, setValidity] = useState({});
   const [errs, setErrs] = useState({});
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       onSubmit(validity, values);
     } catch (err) {
       setErrs((errs) => {
-        return { ...errs, responseErr: err };
+        return { ...errs, resErr: err };
       });
     }
   };
@@ -32,7 +32,6 @@ export default function useForm(
         return { ...validity, [name]: isValid };
       });
       isValid ? errs && clearErr(name): setErrs((errs) => {
-            console.log("Invalid errs in handle change!: ", errs);
             return { ...errs, [name]: "is invalid" };
           });
     }
