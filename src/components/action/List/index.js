@@ -5,6 +5,7 @@ import { Checkbox } from "@material-ui/core";
 
 const List = ({actions, handleCheck, isChecked}) => {
 
+//TODO: Move state from view here...No point prop drillin.
   return (
     actions.length? (
       <ul>

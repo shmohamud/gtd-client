@@ -1,2 +1,2 @@
-const baseUrl = 'https://metacognizer-srv.herokuapp.com'
+const baseUrl = 'http://localhost:4000'
 export default baseUrl

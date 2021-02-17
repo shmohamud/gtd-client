@@ -1,3 +1,10 @@
+.projects-view-main {
+    display:flex;
+    flex:1;
+    flex-direction: column;
+    overflow: scroll;
+}
+
 
 .button {
     width:100px;

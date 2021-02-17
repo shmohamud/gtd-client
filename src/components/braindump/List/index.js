@@ -15,7 +15,6 @@ const List = () => {
     <div className="braindump-container">
       <ol key={braindumps.length}>
         {braindumps.map((braindump, i) => {
-          console.log("Braindump item in List: ", braindump);
           let disabled = true;
           if (i === 0) {
             disabled = false;

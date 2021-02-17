@@ -34,7 +34,7 @@ export default function useProject() {
   };
 
   const create = async (token, validity, values) => {
-    console.log("TOKEN: ", token, "VALUES: ", values)
+    let body = values;
     try {
       const response = await fetch(`${baseUrl}/projects`, {
         method: "POST",
@@ -42,7 +42,7 @@ export default function useProject() {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         }),
-        body: JSON.stringify(values),
+        body: JSON.stringify(body),
       });
       const data = await response.json();
       setProjects((projects) => [...projects, data]);
@@ -52,14 +52,15 @@ export default function useProject() {
   };
 
   const updateById = async (token, validity, values) => {
+    let body = values;
     try {
-      fetch(`${baseUrl}/projects/${project._id}`, {
+      await fetch(`${baseUrl}/projects/${project._id}`, {
         method: "PATCH",
         headers: new Headers({
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         }),
-        body: JSON.stringify(values),
+        body: JSON.stringify(body),
       });
       setProject((project) => Object.assign(project, values));
     } catch (err) {
@@ -68,16 +69,21 @@ export default function useProject() {
   };
 
   const deleteById = async (token) => {
-    setProjects((projects) => [
-      ...projects.filter((p) => p._id !== project._id),
-    ]);
-    await fetch(`${baseUrl}/projects/${project._id}`, {
-      method: "DELETE",
-      headers: new Headers({
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }),
-    });
+    try {
+      await fetch(`${baseUrl}/projects/${project._id}`, {
+        method: "DELETE",
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }),
+      });
+      setProjects((projects) => [
+        ...projects.filter((p) => p._id !== project._id),
+      ]);
+    } catch (err) {
+      console.log("Error: ", err);
+      setErr(err);
+    }
   };
 
   return {

@@ -13,9 +13,9 @@ export default function useAction() {
     try {
       const response = await fetch(`${baseUrl}/actions`, {
         headers: new Headers({
-          'Authorization' : `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }), 
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }),
       });
       const data = await response.json();
       let actions = filterComplete(data);
@@ -64,8 +64,8 @@ export default function useAction() {
       const response = await fetch(`${baseUrl}/actions`, {
         method: "POST",
         headers: {
-          'Authorization' : `Bearer ${token}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
       });
@@ -82,7 +82,7 @@ export default function useAction() {
       fetch(`${baseUrl}/actions/${action._id || values._id}`, {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
       });
@@ -104,14 +104,16 @@ export default function useAction() {
   };
 
   const deleteById = async (token, id) => {
+    console.log("Deletee by id : ", id);
     try {
       await fetch(`${baseUrl}/actions/${id}`, {
         method: "DELETE",
         headers: {
-          'Authorization' : `Bearer ${token}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
+      setActions((actions) => [...actions.filter((a) => a._id !== id)]);
     } catch (err) {
       setErr(err);
     }

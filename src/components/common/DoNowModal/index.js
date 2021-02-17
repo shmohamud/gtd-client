@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DoNowModal = ({ initialTime, data, deleteById, decrementDecisionNumber }) => {
+const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
   const [open, setOpen] = useState(true);
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const {useAuth} = useApp()
@@ -52,7 +52,8 @@ const DoNowModal = ({ initialTime, data, deleteById, decrementDecisionNumber }) 
   const [modalStyle] = useState(getModalStyle);
 
   const handleClose = () => {
-    decrementDecisionNumber()
+    getPreviousStep()
+    setOpen(false)
   };
   const formatTime = () => {
     const date = new Date(0);

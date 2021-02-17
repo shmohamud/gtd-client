@@ -38,7 +38,7 @@ export default function useReview() {
         body: JSON.stringify(values),
       });
       const data = await response.json();
-      setReviews((reviews)=>[...reviews, data])
+      setReviews((reviews) => [...reviews, data]);
       console.log("Created review: ", data);
     } catch (err) {
       setErr(err);
@@ -46,24 +46,37 @@ export default function useReview() {
   };
 
   const updateById = async (id, values) => {
-    fetch(`${baseUrl}/reviews/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+    try {
+      await fetch(`${baseUrl}/reviews/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",},
+        body: JSON.stringify(values),
+      });
+      setReviews((reviews) => {
+        reviews.map((r) =>
+          r._id === id ? Object.assign({}, r, { values }) : r
+        );
+      });
+    } catch (err) {
+      console.log("Error: ", err);
+      setErr(err);
+    }
   };
 
   const deleteById = async (id) => {
-    setReviews((reviews)=> [...reviews.filter(p => p._id !== id)])
-    await fetch(`${baseUrl}/reviews/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+    try {
+      await fetch(`${baseUrl}/reviews/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setReviews((reviews) => [...reviews.filter((r) => r._id !== id)]);
+    } catch (err) {
+      console.log("Error: ", err);
+      setErr(err);
+    }
   };
 
   return {

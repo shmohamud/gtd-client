@@ -18,7 +18,7 @@ export default function useForm(
       onSubmit(validity, values);
     } catch (err) {
       setErrs((errs) => {
-        return { ...errs, resErr: err };
+        return { ...errs, err };
       });
     }
   };
@@ -41,9 +41,9 @@ export default function useForm(
   };
 
   const clearErr = async (name) => {
-    let res = Object.assign({}, errs);
-    delete res[name];
-    setErrs(() => res);
+    let errsCopy = Object.assign({}, errs);
+    delete errsCopy[name];
+    setErrs(() => errsCopy);
   };
 
   return {

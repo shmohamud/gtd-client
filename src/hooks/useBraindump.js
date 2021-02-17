@@ -34,21 +34,20 @@ export default function useBraindump() {
   };
 
   const create = async (token, validity, values) => {
-    const dump = { description: values };
-    
     try {
+      const body = { description: values };
       const response = await fetch(`${baseUrl}/braindumps`, {
         method: "POST",
         headers: new Headers({
           'Authorization' : `Bearer ${token}`,
           "Content-Type": "application/json"
         }),
-        body: JSON.stringify(dump),
+        body: JSON.stringify(body),
       });
       const data = await response.json();
-      console.log("Dump data response: ", data)
-      setBraindumps((items) => [...items, data]);
+      setBraindumps((braindumps) => [...braindumps, data]);
     } catch (err) {
+      console.log("Error: ", err)
       setErr(err);
     }
   };
@@ -63,10 +62,10 @@ export default function useBraindump() {
         },
       });
       setBraindumps((braindumps) => [
-        
-        ...braindumps.filter((p) => p._id !== id),
+        ...braindumps.filter((b) => b._id !== id),
       ]);
     } catch (err) {
+      console.log("Error: ", err)
       setErr(err);
     }
   };
