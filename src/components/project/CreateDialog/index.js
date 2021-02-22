@@ -16,7 +16,6 @@ const CreateDialog = ({ open, setOpen }) => {
   const { create } = useProject;
 
   const onSubmit = async (validity, values) => {
-    console.log("TOKEN IN ON SUBMIT CREATE PROJECT DIALOG: ", token)
     create(token, {}, values)
   }
   const { handleChange, handleSubmit } = useForm(onSubmit);
@@ -26,6 +25,7 @@ const CreateDialog = ({ open, setOpen }) => {
   };
 
 
+  
   return (
     <div>
       <Dialog

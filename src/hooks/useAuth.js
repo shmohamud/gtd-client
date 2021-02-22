@@ -1,21 +1,16 @@
 import React from "react";
-import baseUrl from "./baseUrl";
+import baseUrl from "./api/baseUrl";
 import CustomException from "../utils/CustomException";
 import { useState } from "react";
+import { auth as api } from "./api";
 
 export default function useAuth() {
   const [token, setToken] = useState([]);
   const [me, setMe] = useState({});
   const [err, setErr] = useState({});
 
-  const signup = async (validity, values) => {
-    const response = await fetch(`${baseUrl}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+  const signup = async (validity, body) => {
+    const response = await api.signup(body);
     const data = await response.json();
     if (response.ok) {
       return;
@@ -24,15 +19,9 @@ export default function useAuth() {
     throw new CustomException(data.error);
   };
 
-  const login = async (validity, values) => {
+  const login = async (validity, body) => {
     try {
-      const response = await fetch(`${baseUrl}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const response = await api.login(body);
       const data = await response.json();
       const { accessToken } = data || "";
       setToken(accessToken);
@@ -45,16 +34,9 @@ export default function useAuth() {
   const logout = async () => {
     let username = me.username;
     try {
-      const response = await fetch(`${baseUrl}/logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: username }),
-      });
-      const data = await response.json();
+      await api.logout(username);
       setToken(() => []);
-      setMe(() => data);
+      setMe(() => {});
     } catch (err) {
       console.log("Error: ", err);
     }

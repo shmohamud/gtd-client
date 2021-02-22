@@ -1,5 +1,6 @@
 import React from "react";
-import baseUrl from "./baseUrl";
+import baseUrl from "./api/baseUrl";
+import { incubates as api } from "./api";
 import { useState } from "react";
 
 export default function useIncubate() {
@@ -10,13 +11,7 @@ export default function useIncubate() {
   //Get list of all incubates
   const getAll = async (token) => {
     try {
-      const response = await fetch(`${baseUrl}/incubates`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await api.get(token);
       const data = await response.json();
       setIncubates(data);
     } catch (err) {
@@ -24,28 +19,9 @@ export default function useIncubate() {
     }
   };
 
-  const getById = async (id) => {
+  const create = async (token, validity, body) => {
     try {
-      const response = await fetch(`${baseUrl}/incubates/${id}`);
-      const data = await response.json();
-      setIncubate(data);
-    } catch (err) {
-      setErr(err);
-    }
-  };
-
-  const create = async (token, validity, values, urls) => {
-    let body = values;
-    body.urls = urls;
-    try {
-      const response = await fetch(`${baseUrl}/incubates`, {
-        method: "POST",
-        headers: new Headers({
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        }),
-        body: JSON.stringify(body),
-      });
+      const response = await api.create(token, body);
       const data = await response.json();
       setIncubates((incubates) => [...incubates, data]);
     } catch (err) {
@@ -53,19 +29,12 @@ export default function useIncubate() {
     }
   };
 
-  const updateById = async (id, values) => {
-    const body = values;
+  const updateById = async (token, body) => {
     try {
-      await fetch(`${baseUrl}/incubates/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      await api.updateById(token, body, incubate._id);
       setIncubates((incubates) => {
         incubates.map((_i) =>
-          _i._id === id ? Object.assign({}, _i, { values }) : _i
+          _i._id === incubate._id ? Object.assign({}, _i, { body }) : _i
         );
       });
     } catch (err) {
@@ -74,15 +43,9 @@ export default function useIncubate() {
     }
   };
 
-  const deleteById = async (token, id) => {
+  const deleteById = async (token) => {
     try {
-      await fetch(`${baseUrl}/incubates/${id}`, {
-        method: "DELETE",
-        headers: new Headers({
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        }),
-      });
+      await api.deleteById(token, incubate._id);
       setIncubates((incubates) => [
         ...incubates.filter((_i) => _i._id !== _i._id),
       ]);
@@ -94,11 +57,12 @@ export default function useIncubate() {
 
   return {
     incubates,
+    incubate,
+    err,
+    setIncubate,
     getAll,
-    getById,
     create,
     updateById,
     deleteById,
-    err,
   };
 }

@@ -63,7 +63,7 @@ const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
   };
 
   const onDone = () => {
-    deleteById(token, data._id)
+    deleteById(token)
   }
 
   const body = (

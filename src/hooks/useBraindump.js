@@ -1,20 +1,17 @@
 import React from "react";
-import baseUrl from "./baseUrl";
+import baseUrl from "./api/baseUrl";
+import { braindumps as api } from "./api";
 import { useState } from "react";
 
 export default function useBraindump() {
   const [braindump, setBraindump] = useState([]);
   const [braindumps, setBraindumps] = useState([]);
   const [err, setErr] = useState(null);
+
   //Get list of all braindumps
   const getAll = async (token) => {
     try {
-      const response = await fetch(`${baseUrl}/braindumps`, {
-        headers: new Headers({
-          'Authorization' : `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }), 
-      });
+      const response = await api.get(token);
       const data = await response.json();
       setBraindumps(data);
       return data;
@@ -23,49 +20,22 @@ export default function useBraindump() {
     }
   };
 
-  const getById = async (id) => {
+  const create = async (token, validity, body) => {
     try {
-      const response = await fetch(`${baseUrl}/braindumps/${id}`);
-      const data = await response.json();
-      setBraindump(data);
-    } catch (err) {
-      setErr(err);
-    }
-  };
-
-  const create = async (token, validity, values) => {
-    try {
-      const body = { description: values };
-      const response = await fetch(`${baseUrl}/braindumps`, {
-        method: "POST",
-        headers: new Headers({
-          'Authorization' : `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }),
-        body: JSON.stringify(body),
-      });
+      const response = await api.create(token, body);
       const data = await response.json();
       setBraindumps((braindumps) => [...braindumps, data]);
     } catch (err) {
-      console.log("Error: ", err)
+      console.log("Error: ", err);
       setErr(err);
     }
   };
 
-  const deleteById = async (token, id) => {
+  const deleteById = async (token) => {
     try {
-      await fetch(`${baseUrl}/braindumps/${id}`, {
-        method: "DELETE",
-        headers: {
-          'Authorization' : `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-      });
-      setBraindumps((braindumps) => [
-        ...braindumps.filter((b) => b._id !== id),
-      ]);
+      await api.deleteById(token, braindump._id);
     } catch (err) {
-      console.log("Error: ", err)
+      console.log("Error: ", err);
       setErr(err);
     }
   };
@@ -73,10 +43,10 @@ export default function useBraindump() {
   return {
     braindumps,
     braindump,
+    err,
+    setBraindump,
     getAll,
-    getById,
     create,
     deleteById,
-    err,
   };
 }

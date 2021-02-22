@@ -14,7 +14,6 @@ export default function CreateDialog({
   data,
   hasDeadline,
   delegate,
-  decrementDecisionNumber,
   deleteById
 }) {
   const [open, setOpen] = useState(true);
@@ -31,7 +30,7 @@ export default function CreateDialog({
           <h1>Action Created!</h1>
         </div>
       )
-      await deleteById(token, data._id);
+      await deleteById(token);
     } else if (
       hasDeadline &&
       values["deadline"] !== "undefined" &&
@@ -43,7 +42,7 @@ export default function CreateDialog({
           <h1>Action Created!</h1>
         </div>
       )
-      await deleteById(token, data._id);
+      await deleteById(token);
     } else {
       alert(
         'Please select a deadline or go back and select "No" for "has concrete deadline" question'
@@ -69,9 +68,8 @@ export default function CreateDialog({
   );
 
   const handleClose = () => {
-    console.log("DECREMENT DECISION NUMBER")
-    decrementDecisionNumber()
-  };
+    setOpen(false)
+    };
 
   useEffect(() => {
     if (delegate) {

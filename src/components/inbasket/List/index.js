@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import styles from "./index.css";
-import DecisionDialog from '../../common/DecisionDialog';
+import Item from '../Item';
 import { useApp } from "../../../AppProvider";
 
 const List = () => {
   const { useAuth, useInbasket } = useApp();
   const {token} = useAuth
-  const { getAll, inbaskets, deleteById } = useInbasket;
+  const { inbaskets, getAll } = useInbasket;
   useEffect(() => {
     getAll(token);
   }, []);
+
   return (
     <div className="inbasket-container">
       <ol key={inbaskets.length}>
         {inbaskets.map((inbasket) => (
-          <li key={inbasket._id}><DecisionDialog data={inbasket} deleteById={deleteById}/></li>
+        <Item key={inbasket._id} data={inbasket} />
         ))}
       </ol>
     </div>

@@ -11,7 +11,8 @@ const BraindumpView = () => {
 
   const handleKeyPress = (e) => {
     if (e.key == "Enter" && e.target.value.length) {
-      create(token, {}, e.target.value)
+      let body = {description: e.target.value}
+      create(token, {}, body)
       e.preventDefault();
       e.target.value = "";
     }

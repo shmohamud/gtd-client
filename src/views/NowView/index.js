@@ -8,7 +8,7 @@ import styles from "./index.css";
 const NowView = ({ quotationIndex }) => {
   const { useAuth, useAction } = useApp();
   const { token } = useAuth;
-  const { getAll, actions, updateById } = useAction;
+  const { getAll, actions, updateById, deleteById } = useAction;
   const [checkedActions, setCheckedActions] = useState([]);
   const [mounted, setMounted] = useState(false);
 
@@ -20,7 +20,9 @@ const NowView = ({ quotationIndex }) => {
   }, []);
   const handleCheck = async (d) => {
     let values = { ...d, complete: true };
-    await updateById({}, values);
+    console.log("IN HANDLE CHECK!: ", d)
+    await deleteById(token, d._id)
+    // await updateById({}, values);
     setCheckedActions((checkedActions) => [...checkedActions, d]);
   };
 

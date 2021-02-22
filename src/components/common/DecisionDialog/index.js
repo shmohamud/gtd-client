@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,18 +9,24 @@ import NotActionableDialog from "../NotActionableDialog";
 import MultistepDialog from "../MultistepDialog";
 import DoNowModal from "../DoNowModal";
 import CreateDialog from "../../action/CreateDialog";
+import {useApp} from '../../../AppProvider';
 import { guidingQuestions } from "../constants";
+
 
 const DecisionDialog = ({ data, deleteById, disabled }) => {
   const [open, setOpen] = useState(false);
   const [decisionNumber, setDecisionNumber] = useState(0);
   const [currDecision, setDecision] = useState("");
+  const {useInbasket} = useApp()
+  const {setInbasket} = useInbasket
+  const [count, setCount] = useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    setInbasket([])
     setOpen(false);
     setDecision("");
     setDecisionNumber(0);
@@ -44,6 +50,10 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
       setDecision("No");
     }
   };
+
+setTimeout(()=>{
+  setCount(count+1)
+},1000)
 
   return (
     <div style={{ margin: "10px" }}>

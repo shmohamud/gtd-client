@@ -36,11 +36,20 @@ export default function CreateDialog({ open, handleCloseOrCancel, id, deleteById
           <Button onClick={handleCloseOrCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={async () => { await create(token, {}, values, urls); swal(
-        <div>
-          <h1>Incubate Created!</h1>
-        </div>
-      ); await deleteById(token, id)}} color="secondary">
+          <Button
+            onClick={async () => {
+              let body = values;
+              body.urls = urls;
+              await create(token, {}, body);
+              swal(
+                <div>
+                  <h1>Incubate Created!</h1>
+                </div>
+              );
+              await deleteById(token, id);
+            }}
+            color="secondary"
+          >
             Incubate
           </Button>
         </DialogActions>

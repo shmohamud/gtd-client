@@ -49,7 +49,9 @@ export default function CreateDialog({
           </Button>
           <Button
             onClick={async () => {
-              await create(token, {}, values, urls);
+              let body = values;
+              body.urls = urls;
+              await create(token, {}, body);
               swal(
                 <div>
                   <h1>Reference Created!</h1>

@@ -1,6 +1,7 @@
 import React from "react";
-import baseUrl from "./baseUrl";
+import baseUrl from "./api/baseUrl";
 import { useState } from "react";
+import { reviews as api } from "./api";
 
 export default function useReview() {
   const [review, setReview] = useState([]);
@@ -8,9 +9,9 @@ export default function useReview() {
   const [err, setErr] = useState(null);
 
   //Get list of all reviews --- half implemented
-  const getAll = async () => {
+  const getAll = async (token) => {
     try {
-      const response = await fetch(`${baseUrl}/reviews`);
+      const response = await api.get(token);
       const data = await response.json();
       setReviews(data);
     } catch (err) {
@@ -18,44 +19,22 @@ export default function useReview() {
     }
   };
 
-  const getById = async (id) => {
+  const create = async (token, validity, body) => {
     try {
-      const response = await fetch(`${baseUrl}/reviews/${id}`);
-      const data = await response.json();
-      setReview(data);
-    } catch (err) {
-      setErr(err);
-    }
-  };
-
-  const create = async (validity, values) => {
-    try {
-      const response = await fetch(`${baseUrl}/reviews`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const response = api.create(token, body);
       const data = await response.json();
       setReviews((reviews) => [...reviews, data]);
-      console.log("Created review: ", data);
     } catch (err) {
       setErr(err);
     }
   };
 
-  const updateById = async (id, values) => {
+  const updateById = async (token, validity, body) => {
     try {
-      await fetch(`${baseUrl}/reviews/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",},
-        body: JSON.stringify(values),
-      });
+      await api.updateById(token, body, review._id);
       setReviews((reviews) => {
         reviews.map((r) =>
-          r._id === id ? Object.assign({}, r, { values }) : r
+          r._id === review._id ? Object.assign({}, r, { body }) : r
         );
       });
     } catch (err) {
@@ -64,15 +43,10 @@ export default function useReview() {
     }
   };
 
-  const deleteById = async (id) => {
+  const deleteById = async (token) => {
     try {
-      await fetch(`${baseUrl}/reviews/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setReviews((reviews) => [...reviews.filter((r) => r._id !== id)]);
+      await api.deleteById(token, review._id);
+      setReviews((reviews) => [...reviews.filter((r) => r._id !== review._id)]);
     } catch (err) {
       console.log("Error: ", err);
       setErr(err);
@@ -81,11 +55,11 @@ export default function useReview() {
 
   return {
     reviews,
+    review,
+    err,
     getAll,
-    getById,
     create,
     updateById,
     deleteById,
-    err,
   };
 }
