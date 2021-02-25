@@ -50,11 +50,7 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
       setDecision("No");
     }
   };
-
-setTimeout(()=>{
-  setCount(count+1)
-},1000)
-
+  
   return (
     <div style={{ margin: "10px" }}>
       <Button variant="outlined" disabled={disabled} onClick={handleClickOpen}>

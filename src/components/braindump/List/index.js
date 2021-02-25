@@ -6,7 +6,7 @@ import { useApp } from "../../../AppProvider";
 const List = () => {
   const { useAuth, useBraindump } = useApp();
   const { token } = useAuth;
-  const { braindumps, getAll, setBraindump, deleteById } = useBraindump;
+  const { braindumps, getAll, deleteById } = useBraindump;
   
   useEffect(() => {
     getAll(token);
@@ -18,7 +18,6 @@ const List = () => {
           let disabled = true;
           if (i === 0) {
             disabled = false;
-            setBraindump(braindump)
           }
           return (
             <li key={braindump._id}>

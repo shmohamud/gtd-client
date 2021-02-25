@@ -17,6 +17,7 @@ const BraindumpView = () => {
       e.target.value = "";
     }
   };
+  
   return (
     <div className="braindump-view-container">
       <h1>Braindump</h1>

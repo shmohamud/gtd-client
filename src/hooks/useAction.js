@@ -62,7 +62,7 @@ export default function useAction() {
         ])
       }, 500);
     } catch (err) {
-      console.log("Error!!!: ", err )
+      console.log("Error: ", err )
       setErr(err);
     }
   };

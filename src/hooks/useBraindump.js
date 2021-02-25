@@ -1,5 +1,4 @@
 import React from "react";
-import baseUrl from "./api/baseUrl";
 import { braindumps as api } from "./api";
 import { useState } from "react";
 
@@ -33,7 +32,10 @@ export default function useBraindump() {
 
   const deleteById = async (token) => {
     try {
-      await api.deleteById(token, braindump._id);
+      await api.deleteById(token, braindumps[0]._id);
+      setBraindumps((braindumps) => [
+        ...braindumps.filter((item => item._id !== braindumps[0]._id))
+      ])
     } catch (err) {
       console.log("Error: ", err);
       setErr(err);

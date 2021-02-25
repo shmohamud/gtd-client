@@ -11,18 +11,32 @@ import DateAndTimePickers from "../../common/DateAndTimePickers";
 import { useApp } from "../../../AppProvider";
 
 export default function EditDialog({ open, handleClose }) {
-  const { useForm, useProject } = useApp();
+  const { useAuth, useForm, useProject } = useApp();
+  const {token} = useAuth
   const { updateById, project } = useProject;
-  const { handleChange, handleSubmit } = useForm(updateById);
+
+const onSubmit = async () => {
+  const {title, description }= values
+  let body = {title, description}
+  updateById(token, {}, body)
+}
+
+const { handleChange, handleSubmit, values } = useForm(onSubmit);
 
   return (
     <div>
       <Dialog
         open={open}
-        onChange={handleChange}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+        aria-labelledby="form-dialog-title">
+        <form onChange={handleChange} onSubmit={async(e)=>{await handleSubmit(e)
+              swal(
+                <div>
+                  <h1>Edit Success!</h1>
+                </div>
+              );
+              return handleClose();
+            }}>
         <DialogTitle id="form-dialog-title">Project Editor</DialogTitle>
         <DialogContent>
           <DialogContentText>Edit Project Details</DialogContentText>
@@ -52,21 +66,13 @@ export default function EditDialog({ open, handleClose }) {
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
-          <Button
-            onClick={async (e) => {
-              await handleSubmit(e);
-              swal(
-                <div>
-                  <h1>Edit Success!</h1>
-                </div>
-              );
-              return handleClose();
-            }}
+          <Button type="submit"
             color="secondary"
           >
             Submit
           </Button>
         </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import baseUrl from "./api/baseUrl";
 import CustomException from "../utils/CustomException";
 import { useState } from "react";
 import { auth as api } from "./api";
@@ -45,9 +44,9 @@ export default function useAuth() {
   return {
     token: token,
     me: me,
+    err: err,
     signup,
     login,
     logout,
-    err: err,
   };
 }
