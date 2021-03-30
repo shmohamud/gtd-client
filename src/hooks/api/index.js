@@ -47,7 +47,7 @@ const headers = {
     return (token) =>
       new Headers({
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       });
   },
   get delete() {
@@ -75,10 +75,11 @@ export const actions = {
       });
   },
   get updateById() {
-    return (token, id) =>
+    return (token, body, id) =>
       fetch(`${baseUrl}/actions/${id}`, {
-        method: "patch",
+        method: "PATCH",
         headers: headers.patch(token),
+        body: JSON.stringify(body)
       });
   },
   get deleteById() {
@@ -157,7 +158,7 @@ export const projects = {
   get updateById() {
     return (token, body, id) =>
       fetch(`${baseUrl}/projects/${id}`, {
-        method: "patch",
+        method: "PATCH",
         headers: headers.patch(token),
         body: JSON.stringify(body),
       });
@@ -221,7 +222,7 @@ export const references = {
   get updateById() {
     return (token, id) =>
       fetch(`${baseUrl}/references/${id}`, {
-        method: "patch",
+        method: "PATCH",
         headers: headers.patch(token),
       });
   },

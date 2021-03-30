@@ -15,8 +15,16 @@ const EditDialog = ({
 }) => {
   const { useForm, useAction } = useApp();
   const { updateById, action} = useAction;
+  const {useAuth} = useApp()
+  const {token} = useAuth
+  const onSubmit = async () => {
+    const {title, description }= values
+    let body = {title, description}
+    updateById(token, {}, body)
+  }
+  const { handleChange, handleSubmit, values} = useForm(onSubmit);
 
-  const { handleChange, handleSubmit} = useForm(updateById);
+
   const handleClose = () => {
     setOpen(false);
   };

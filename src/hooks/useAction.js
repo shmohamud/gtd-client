@@ -34,6 +34,7 @@ export default function useAction() {
   };
 
   const updateById = async (token, validity, body) => {
+    console.log("Token: ", token)
     try {
       await api.updateById(token, body, action._id);
       if (body["complete"]) {

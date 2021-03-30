@@ -1,5 +1,6 @@
 .projects-view-main {
     display:flex;
+    padding: 2em;
     flex:1;
     flex-direction: column;
     overflow: scroll;

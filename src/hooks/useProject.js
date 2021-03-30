@@ -30,6 +30,7 @@ export default function useProject() {
   };
 
   const updateById = async (token, validity, body) => {
+    console.log("BODY: ", body, "PROJECT: ", project, "ID: ", project._id)
     try {
       await api.updateById(token, body, project._id);
       setProject((project) => Object.assign(project, body));

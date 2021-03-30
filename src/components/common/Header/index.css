@@ -1,6 +1,7 @@
 .header-container {
     display: flex;
     justify-content: space-between;
+    padding: .4em;
 }
 
 .header-container h1 {
@@ -8,12 +9,15 @@
    color:white;
    font-family: monospace;
    margin-left: 2rem;
-
 }
 
 .logout-btn { 
-    background-color: oldlace;
+    background-color: white;
     font-family: emoji;
     height:50%;
+}
+
+.logout-quick-create-container {
+    display:flex;
 }
 

@@ -21,7 +21,8 @@ const WeekView = () => {
 
   const handleCheck = async (d) => {
     let values = { ...d, complete: true };
-    await updateById({}, values);
+    console.log("values in handle check: ", values)
+    await updateById(token, {}, values);
     setCheckedActions((checkedActions) => [...checkedActions, d]);
   };
   const isChecked = (action) => {

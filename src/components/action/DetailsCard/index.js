@@ -54,7 +54,7 @@ const DetailsCard = ({ check, data }) => {
   const { useAuth, useAction } = useApp();
   const { token } = useAuth;
   const { deleteById, setAction } = useAction;
-
+  
   const onDelete = () => {
     deleteById(token, data._id);
   };
@@ -102,8 +102,8 @@ const DetailsCard = ({ check, data }) => {
   );
 
   return (
-    <>
-      <Card className={classes.root} onClick={handleOpen}>
+  
+    <> <Card className={classes.root} onClick={handleOpen}>
         <CardContent
           className={classes.content}
           onClick={() => setAction(data)}
@@ -134,8 +134,10 @@ const DetailsCard = ({ check, data }) => {
       >
         {body}
       </Modal>
-    </>
+      </> 
+      
   );
+    
 };
 
 export default DetailsCard;

@@ -9,6 +9,7 @@ import useReference from "../hooks/useReference";
 import useIncubate from "../hooks/useIncubate";
 import useInbasket from "../hooks/useInbasket";
 import useAuth from "../hooks/useAuth";
+import useSnackbar from "../hooks/useSnackbar";
 
 const AppCtx = createContext();
 
@@ -22,6 +23,7 @@ const AppProvider = ({ children }) => {
     useIncubate: useIncubate(),
     useInbasket: useInbasket(),
     useAuth: useAuth(),
+    useSnackbar: useSnackbar(),
     useForm,
   };
 

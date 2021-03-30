@@ -8,18 +8,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import NotActionableDialog from "../NotActionableDialog";
 import MultistepDialog from "../MultistepDialog";
 import DoNowModal from "../DoNowModal";
-import CreateDialog from "../../action/CreateDialog";
+import CreateDialog from "../../common/CRUDDialog";
 import {useApp} from '../../../AppProvider';
 import { guidingQuestions } from "../constants";
 
 
-const DecisionDialog = ({ data, deleteById, disabled }) => {
+const DecisionDialog = ({ data, deleteById, handleRequest, disabled }) => {
   const [open, setOpen] = useState(false);
   const [decisionNumber, setDecisionNumber] = useState(0);
   const [currDecision, setDecision] = useState("");
   const {useInbasket} = useApp()
   const {setInbasket} = useInbasket
-  const [count, setCount] = useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -93,10 +92,16 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
         )}
         {decisionNumber === 3 && currDecision === "No" ? (
           <CreateDialog
-            data={data}
             delegate={true}
             deleteById={deleteById}
             getPreviousStep={getPreviousStep}
+            handleRequest={handleRequest}
+            title={"Create Action"}
+            contentText={"Please enter an action type and description"}
+            modelName={"action"}
+            method={"POST"}
+            open={open}
+            setOpen={setOpen}
           />
         ) : (
           ""
@@ -106,6 +111,13 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
             data={data}
             deleteById={deleteById}
             getPreviousStep={getPreviousStep}
+            handleRequest={handleRequest}
+            title={"Create Action"}
+            contentText={"Please enter an action type and description"}
+            modelName={"action"}
+            method={"POST"}
+            open={open}
+            setOpen={setOpen}
           />
         ) : (
           ""
@@ -116,6 +128,13 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
             open={true}
             deleteById={deleteById}
             getPreviousStep={getPreviousStep}
+            handleRequest={handleRequest}
+            title={"Create Action"}
+            contentText={"Please enter an action type and description"}
+            modelName={"action"}
+            method={"POST"}
+            open={open}
+            setOpen={setOpen}
           />
         ) : (
           ""
@@ -126,6 +145,13 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
             hasDeadline={true}
             deleteById={deleteById}
             getPreviousStep={getPreviousStep}
+            handleRequest={handleRequest}
+            title={"Create Action"}
+            contentText={"Please enter an action type and description"}
+            modelName={"action"}
+            method={"POST"}
+            open={open}
+            setOpen={setOpen}
           />
         ) : (
           ""

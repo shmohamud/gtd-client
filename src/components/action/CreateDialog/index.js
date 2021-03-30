@@ -11,7 +11,6 @@ import swal from "@sweetalert/with-react";
 import { useApp } from "../../../AppProvider";
 
 export default function CreateDialog({
-  data,
   hasDeadline,
   delegate,
   deleteById
@@ -25,11 +24,6 @@ export default function CreateDialog({
   const onSubmit = async (validity, values) => {
     if (hasDeadline === undefined) {
       await create(token, {}, values);
-      swal(
-        <div>
-          <h1>Action Created!</h1>
-        </div>
-      )
       await deleteById(token);
     } else if (
       hasDeadline &&
@@ -37,11 +31,6 @@ export default function CreateDialog({
       validity["deadline"]
     ) {
       await create(token, {}, values);
-      swal(
-        <div>
-          <h1>Action Created!</h1>
-        </div>
-      )
       await deleteById(token);
     } else {
       alert(
@@ -96,7 +85,6 @@ export default function CreateDialog({
       >
         <form onSubmit={handleSubmit}>
           <DialogTitle id="form-dialog-title">
-            {data && data.description}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>

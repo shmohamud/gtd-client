@@ -15,6 +15,7 @@ export default function useForm(
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      console.log("ON SUBMIT: ", validity, values)
       onSubmit(validity, values);
     } catch (err) {
       setErrs((errs) => {
@@ -26,6 +27,7 @@ export default function useForm(
   const handleChange = (event) => {
     let value = event.target.value.trim();
     let name = event.target.name;
+    console.log("NAME: ", name, "VALUE: ", value)
     if (validationSchema[name]) {
       let isValid = validationSchema[name](value);
       setValidity((validity) => {
