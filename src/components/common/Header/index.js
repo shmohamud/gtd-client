@@ -7,7 +7,7 @@ const Header = () => {
     const { logout } = useAuth;
   return ( 
     <header className="header-container">
-        <h1>Ladan</h1>
+        <h1>Metacognizer</h1>
         <QuickCreateDialog/>
         <button className="logout-btn" onClick={logout}>Logout</button>
     </header>

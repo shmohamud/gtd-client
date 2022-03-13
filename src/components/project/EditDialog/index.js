@@ -58,7 +58,7 @@ const { handleChange, handleSubmit, values } = useForm(onSubmit);
             label="Project Description"
             type="text"
             fullWidth={true}
-            defaultValue={project.title}
+            defaultValue={project.description}
           />
           <DateAndTimePickers />
         </DialogContent>
@@ -68,6 +68,8 @@ const { handleChange, handleSubmit, values } = useForm(onSubmit);
           </Button>
           <Button type="submit"
             color="secondary"
+            onClick={handleSubmit}
+
           >
             Submit
           </Button>

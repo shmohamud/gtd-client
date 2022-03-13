@@ -66,6 +66,10 @@ const DetailsCard = ({ data, select }) => {
     setEdit(true);
   };
 
+  const handleCloseEditor = () => {
+    setEdit(false)
+  }
+
   const classes = useStyles();
 
   const details =
@@ -89,13 +93,13 @@ const DetailsCard = ({ data, select }) => {
         <Button variant="outlined" color="primary" onClick={handleOpenEditor}>
           Edit Project
         </Button>
-        <EditDialog open={edit} handleClose={handleClose} />
+        <EditDialog open={edit} handleClose={handleCloseEditor} />
         <Button variant="outlined" color="primary" onClick={async ()=>{deleteById(token); swal(
                 <div>
                   <h1>Project Deleted!</h1>
                 </div>
               ); return handleClose()}}>
-          Delete Project
+          Delete Project?
         </Button>
       </div>
     </div>

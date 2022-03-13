@@ -46,14 +46,14 @@ const headers = {
   get patch() {
     return (token) =>
       new Headers({
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        Authorization:`Bearer ${token}`,
+        "Content-Type": "application/json"
       });
   },
   get delete() {
     return (token) =>
       new Headers({
-        Authorization: `Bearer ${token}`,
+        Authorization:`Bearer ${token}`,
         "Content-Type": "application/json",
       });
   },
@@ -92,10 +92,11 @@ export const actions = {
 
 export const braindumps = {
   get get() {
-    return (token) =>
+    return (token) => {
+      console.log("Braindump token: ", token)
       fetch(`${baseUrl}/braindumps`, {
         headers: headers.get(token),
-      });
+      })}
   },
   get create() {
     return (token, body) =>
@@ -104,7 +105,7 @@ export const braindumps = {
         headers: headers.post(token),
         body: JSON.stringify(body),
       });
-  },
+    },
 
   get deleteById() {
     return (token, id) =>
@@ -157,7 +158,7 @@ export const projects = {
   get updateById() {
     return (token, body, id) =>
       fetch(`${baseUrl}/projects/${id}`, {
-        method: "patch",
+        method: "PATCH",
         headers: headers.patch(token),
         body: JSON.stringify(body),
       });

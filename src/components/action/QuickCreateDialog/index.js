@@ -16,12 +16,7 @@ const QuickCreateDialog = () => {
 
   return (
     <div className={classes.root}>
-      <SvgIcon>
-        <path d=" M 10 10 V 80 H 20 V 80 H 20" />
-      </SvgIcon>
-      <SvgIcon>
-        <path d=" M 01 10 H 80 V 20 H 80" />
-      </SvgIcon>
+    
     </div>
   );
 };
