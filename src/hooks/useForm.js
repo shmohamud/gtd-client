@@ -6,9 +6,10 @@ const defaultOnSubmit = (validity, values) => {
 
 export default function useForm(
   onSubmit = defaultOnSubmit,
-  validationSchema = {}
+  validationSchema = {},
+  defaultValues={}
 ) {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(defaultValues);
   const [validity, setValidity] = useState({});
   const [errs, setErrs] = useState({});
 
@@ -24,7 +25,7 @@ export default function useForm(
   };
 
   const handleChange = (event) => {
-    let value = event.target.value.trim();
+    let value = event.target.value
     let name = event.target.name;
     if (validationSchema[name]) {
       let isValid = validationSchema[name](value);

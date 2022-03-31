@@ -49,10 +49,7 @@ const DetailsCard = ({ data, select }) => {
   const [edit, setEdit] = useState(false);
   const { useAuth, useProject } = useApp();
   const {token} = useAuth
-  const { project, setProject, deleteById } = useProject;
-  useEffect(() => {
-    setProject(data);
-  });
+  const { setProject, deleteById } = useProject;
 
   const handleOpen = () => {
     setOpen(true);
@@ -63,6 +60,7 @@ const DetailsCard = ({ data, select }) => {
   };
 
   const handleOpenEditor = () => {
+    select (data);
     setEdit(true);
   };
 
@@ -105,44 +103,43 @@ const DetailsCard = ({ data, select }) => {
     </div>
   );
 
+  if (!data) return null;
   return (
-    project && (
-      <>
-        <Card className={classes.root} onClick={handleOpen}>
-          <CardContent
-            className={classes.content}
-            onClick={() => setProject(data)}
-          >
-            <Typography className={classes.title} variant="h5" component="h2">
-              {data.title}
-            </Typography>
-            <Typography className={classes.deadline}>
-              {data.deadline !== undefined
-                ? new Date(data.deadline).toDateString()
-                : ""}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {data.description}
-              <br />
-            </Typography>
-          </CardContent>
-        </Card>
-
-        <Modal
-          className={"modal"}
-          open={open}
-          onClose={handleClose}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+    <>
+      <Card className={classes.root} onClick={handleOpen}>
+        <CardContent
+          className={classes.content}
+          onClick={() => setProject(data)}
         >
-          {body}
-        </Modal>
-      </>
-    )
-  );
+          <Typography className={classes.title} variant="h5" component="h2">
+            {data.title}
+          </Typography>
+          <Typography className={classes.deadline}>
+            {data.deadline !== undefined
+              ? new Date(data.deadline).toDateString()
+              : ""}
+          </Typography>
+          <Typography variant="body2" component="p">
+            {data.description}
+            <br />
+          </Typography>
+        </CardContent>
+      </Card>
+
+      <Modal
+        className={"modal"}
+        open={open}
+        onClose={handleClose}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {body}
+      </Modal>
+    </>
+    );
 };
 
 export default DetailsCard;

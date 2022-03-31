@@ -8,11 +8,11 @@ import { useApp } from "../../AppProvider";
 const ProjectsView = () => {
   const { useAuth, useProject } = useApp();
   const { token } = useAuth;
-  const { projects, setProject } = useProject;
+  const { projects, setProject, getAll} = useProject;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    useProject.getAll(token);
+    getAll(token);
   }, []);
 
   return (

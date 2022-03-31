@@ -21,7 +21,7 @@ const onSubmit = async () => {
   updateById(token, {}, body)
 }
 
-const { handleChange, handleSubmit, values } = useForm(onSubmit);
+const { handleChange, handleSubmit, values } = useForm(onSubmit, {}, project);
 
   return (
     <div>
@@ -29,7 +29,7 @@ const { handleChange, handleSubmit, values } = useForm(onSubmit);
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title">
-        <form onChange={handleChange} onSubmit={async(e)=>{await handleSubmit(e)
+        <form onChange={handleChange} onSubmit={(e)=>{handleSubmit(e)
               swal(
                 <div>
                   <h1>Edit Success!</h1>
@@ -42,34 +42,32 @@ const { handleChange, handleSubmit, values } = useForm(onSubmit);
           <DialogContentText>Edit Project Details</DialogContentText>
           <TextField
             autoFocus={true}
+            value={values.title}
             name="title"
             margin="dense"
             id="title"
             label="Project Title"
             type="text"
             fullWidth={true}
-            defaultValue={project.title}
           />
           <TextField
             autoFocus={true}
+            value={values.description}
             name="description"
             margin="dense"
             id="description"
             label="Project Description"
             type="text"
             fullWidth={true}
-            defaultValue={project.description}
           />
           <DateAndTimePickers />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button color="primary">
             Close
           </Button>
           <Button type="submit"
             color="secondary"
-            onClick={handleSubmit}
-
           >
             Submit
           </Button>
