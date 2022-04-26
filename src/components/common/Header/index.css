@@ -12,8 +12,14 @@
 }
 
 .logout-btn { 
-    background-color: oldlace;
+    background-color:transparent;
     font-family: emoji;
     height:50%;
+    color:white;
+    border:none;
+    font-size:17px;
 }
 
+.logout-btn:hover {
+    background-color:deepskyblue;
+}

@@ -1,17 +1,19 @@
-import React from 'react'
+import React from "react";
+import TestModal from "../../action/TestModal";
+import CreateActionModal from "../../action/CreateModal";
 
-const ModalRoot = (modalType, modalProps) => {
-    //If there's no modal type in state, don't show modal.
-    if(!modalType) return ""
+const MODAL_COMPONENTS = {
+  TEST: TestModal,
+  CREATE_ACTION_MODAL: CreateActionModal,
+};
 
+const ModalRoot = ({ modalType, modalProps }) => {
+  //If there's no modal type in state, don't show modal.
+  if (!modalType) return null;
 
-    //DoNowModal
-    const MODAL_TYPES = []
-    return (
-        <div><p>Test</p>
-            
-        </div>
-    )
-}
+  console.log("Modal Type in Root: ", modalType);
+  const SpecificModal = MODAL_COMPONENTS[modalType];
+  return <SpecificModal {...modalProps} />;
+};
 
-export default ModalRoot
+export default ModalRoot;

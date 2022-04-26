@@ -17,9 +17,9 @@ const ProjectsView = () => {
 
   return (
     <div className="projects-view-main">
-        <CreateIcon style={{float:"right"}}fontSize="large" onClick={()=>setOpen(true)}/><span style={{float:"right", fontSize: "20px",fontWeight:"700"}}>(create)</span>
+        <button style={{color:"white", backgroundColor:"black"}} onClick={()=>setOpen(true)}>Create Project</button>
       <CreateDialog open={open} setOpen={setOpen} />
-      <div>
+      <ul className="projects-view-list">
         {projects.length ? (
           projects.map((proj) => (
             <DashboardCard
@@ -32,7 +32,7 @@ const ProjectsView = () => {
         ) : (
           <h1>There are no Projects to Display</h1>
         )}
-      </div>
+      </ul>
     </div>
   );
 };

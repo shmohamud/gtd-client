@@ -14,13 +14,12 @@ export default function CreateDialog({
   data,
   hasDeadline,
   delegate,
-  deleteById
+  deleteById,
 }) {
   const [open, setOpen] = useState(true);
   const { useAuth, useForm, useAction } = useApp();
-  const {token} = useAuth
+  const { token } = useAuth;
   const { create } = useAction;
-
 
   const onSubmit = async (validity, values) => {
     if (hasDeadline === undefined) {
@@ -29,7 +28,7 @@ export default function CreateDialog({
         <div>
           <h1>Action Created!</h1>
         </div>
-      )
+      );
       await deleteById(token);
     } else if (
       hasDeadline &&
@@ -41,7 +40,7 @@ export default function CreateDialog({
         <div>
           <h1>Action Created!</h1>
         </div>
-      )
+      );
       await deleteById(token);
     } else {
       alert(
@@ -68,8 +67,8 @@ export default function CreateDialog({
   );
 
   const handleClose = () => {
-    setOpen(false)
-    };
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (delegate) {

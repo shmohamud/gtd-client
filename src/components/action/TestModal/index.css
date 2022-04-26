@@ -1,0 +1,8 @@
+.test-modal {
+    position: absolute;
+    z-index:100;
+    height:80%;
+    width:80%;  
+    background-color:white;
+    margin:15%;
+}
