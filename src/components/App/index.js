@@ -17,7 +17,7 @@ import styles from "./index.css";
 const App = () => {
   const { useAuth, useModal } = useApp();
   const { token } = useAuth;
-  const { showModal, hideModal, modalType, modalProps } = useModal;
+  const { modalType, modalProps } = useModal;
 
   const generateRandomIdx = () => {
     let idx = Math.floor(Math.random() * quotations().length);
@@ -36,15 +36,7 @@ const App = () => {
     </div>
   ) : (
     <>
-      <ModalRoot modalType={modalType} modalProps={modalProps}></ModalRoot>
-      <button
-        id="myBtn"
-        onClick={() => {
-          showModal("TEST");
-        }}
-      >
-        Open Modal
-      </button>
+      <ModalRoot modalType={modalType} modalProps={modalProps}/>
       <div className="container">
         <Header />
         <main>

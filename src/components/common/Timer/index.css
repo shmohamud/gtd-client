@@ -3,7 +3,6 @@
     font-family: monospace;
     background-color: crimson;
     color: white;
-    position: absolute;
     height: 70px;
     width: 70px;
     border-radius: 40px;
@@ -11,7 +10,18 @@
     right: 23%;
 }
 
+.timer-btn:hover {
+    background-color: red;
+}
+
 .timer-text {
     text-align: center;
     font-family: monospace;
+    margin-right:20px;
+}
+
+.timer-button-container {
+    border:1px solid black;
+    display: flex;
+    justify-content: center;
 }

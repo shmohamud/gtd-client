@@ -60,7 +60,9 @@ export default class Timer extends React.Component {
 
   render() {
     const button = !this.state.on ? (
-      <button className="timer-btn" onClick={this.startTimer}>Start</button>
+      <button className="timer-btn" onClick={this.startTimer}>
+        Start
+      </button>
     ) : (
       <button className="timer-btn" onClick={this.stopTimer}>Stop</button>
 
@@ -69,10 +71,10 @@ export default class Timer extends React.Component {
 
 
     return (
-      <>
+      <div className="timer-button-container">
         {this.renderTime()}
         {button}
-      </>
+      </div>
     );
   }
 }

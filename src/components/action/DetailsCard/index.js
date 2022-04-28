@@ -108,9 +108,6 @@ const DetailsCard = ({ check, data }) => {
           className={classes.content}
           onClick={() => setAction(data)}
         >
-          <Typography className={classes.title} variant="h5" component="h2">
-            {data.title}
-          </Typography>
           <Typography className={classes.pos} color="secondary">
             {data.deadline !== undefined
               ? new Date(data.deadline).toLocaleDateString()

@@ -11,7 +11,6 @@ const ModalRoot = ({ modalType, modalProps }) => {
   //If there's no modal type in state, don't show modal.
   if (!modalType) return null;
 
-  console.log("Modal Type in Root: ", modalType);
   const SpecificModal = MODAL_COMPONENTS[modalType];
   return <SpecificModal {...modalProps} />;
 };

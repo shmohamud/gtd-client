@@ -14,7 +14,8 @@ import WorkIcon from "@material-ui/icons/Work";
 import WorkOffIcon from "@material-ui/icons/WorkOff";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import Update from "@material-ui/icons/Update";
-
+import AddIcon from '@material-ui/icons/Add';
+import {useApp} from "../../../AppProvider"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppDrawer() {
+  const {useModal} = useApp()
+  const {showModal} = useModal
   const classes = useStyles();
   return (
       <Drawer
@@ -91,6 +94,16 @@ export default function AppDrawer() {
                 <WorkOffIcon />
               </ListItemIcon>
               <ListItemText  disabled={true} primary={"Archived"} />
+            </ListItem>
+            <ListItem
+            onClick={()=>showModal('CREATE_ACTION_MODAL')}
+              button
+              key={"211212900982e133224hiujk2r2e123e"}
+            >
+              <ListItemIcon>
+                <AddIcon/>
+              </ListItemIcon>
+              <ListItemText  disabled={true} primary={"New Action"} />
             </ListItem>
           </List>
         </div>

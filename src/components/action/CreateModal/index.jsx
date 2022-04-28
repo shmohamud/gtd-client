@@ -1,18 +1,18 @@
 import { React, useState, useEffect } from "react";
 import swal from "@sweetalert/with-react";
 import { useApp } from "../../../AppProvider";
+import styles from "./index.css"
 import Modal from "../../common/Modal";
 
 export default function CreateModal({
   data,
   hasDeadline,
   delegate,
-  deleteById,
 }) {
   const [open, setOpen] = useState(true);
   const { useAuth, useForm, useAction, useProject } = useApp();
   const { token } = useAuth;
-  const { create } = useAction;
+  const { create, deleteById } = useAction;
   const { projects } = useProject;
 
   const onSubmit = async (validity, values) => {
@@ -82,18 +82,39 @@ export default function CreateModal({
   return (
     <Modal>
     <div className="create-modal">
-      <form onChange={handleChange} onSubmit={handleSubmit} method="GET" action="#">
-        <label>Choose a Project: </label>
+      <h2>New Action</h2>
+      <form onChange={handleChange} onSubmit={handleSubmit}>
+        <label for="project">Choose a Project: </label>
         <div class="select">
-          <select id="project-select">
-            <option>Select a Project</option>
+          <select name="project_id" id="project-select" required>
+            <option value="">Select a Project</option>
          {projects.map(project => {
-             <option key={project._id}>{project.title}</option>
+             return <option key={project._id} value={project._id}>{project.title}</option>
          })}
           </select>
         </div>
-        <input type="text" placeholder="Title" />
-        <input type="text" placeholder="Description" />
+        <label for="description">Description</label>
+        <input type="text" name="description" placeholder="Description" required/>
+        <div class="select">
+          <select name="type" id="type-select" required>
+            <option value="">Select Type</option>
+            <option key={'321jlkjxfdsaf3'} value={"call"}>Call</option>
+            <option key={'1230092i3321jlkjxfdsaf3'} value={"code"}>Code</option>
+            <option key={'909103321jlkjxfdsaf3'} value={"hangout"}>Hangout</option>
+          </select>
+        
+        </div>
+        <div className="radio-group">
+        <fieldset>
+        <legend>Choose a Setting</legend>        
+        <label for="home">Home</label>
+        <input type="radio" id="home" name="setting" value="home"/>
+        <label for="commute">Commuting</label>
+        <input type="radio" id="commute" name="setting" value="commuting"/>
+        <label for="club">Club</label>
+        <input type="radio" id="club" name="setting" value="club"/>
+        </fieldset>
+        </div>
         <input type="submit" />
       </form>
       </div>

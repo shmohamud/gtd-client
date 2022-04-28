@@ -1,11 +1,18 @@
-import React from 'react'
-import styles from './index.css'
-const Modal = ({children, height, width}) => {
-    return (
-        <div className="modal">
-            {children}
-        </div>
-    )
-}
+import React from "react";
+import styles from "./index.css";
+import { useApp } from "../../../AppProvider";
 
-export default Modal
+const Modal = ({ children, height, width }) => {
+  const { useModal } = useApp();
+  const { hideModal } = useModal;
+  return (
+    <div className="modal">
+      {children}
+      <button className="close-button" onClick={hideModal}>
+        X
+      </button>
+    </div>
+  );
+};
+
+export default Modal;
