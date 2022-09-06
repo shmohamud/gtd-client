@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
+import Modal from "../Modal";
 import Button from "@material-ui/core/Button";
-import {useApp} from '../../../AppProvider';
-
+import { useApp } from "../../../AppProvider";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -17,8 +16,8 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-    display:"flex",
-    flexDirection:"column"
+    display: "flex",
+    flexDirection: "column",
   };
 }
 
@@ -31,16 +30,14 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  button: {
-
-  }
+  button: {},
 }));
 
 const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
   const [open, setOpen] = useState(true);
   const [timeLeft, setTimeLeft] = useState(initialTime);
-  const {useAuth} = useApp()
-  const{token} = useAuth
+  const { useAuth } = useApp();
+  const { token } = useAuth;
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(timeLeft - 1);
@@ -52,9 +49,10 @@ const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
   const [modalStyle] = useState(getModalStyle);
 
   const handleClose = () => {
-    getPreviousStep()
-    setOpen(false)
+    getPreviousStep();
+    setOpen(false);
   };
+  
   const formatTime = () => {
     const date = new Date(0);
     date.setSeconds(timeLeft);
@@ -63,14 +61,21 @@ const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
   };
 
   const onDone = () => {
-    deleteById(token)
-  }
+    deleteById(token);
+  };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Do it now!</h2>
       <p id="simple-modal-description">Time Left: {formatTime(timeLeft)} </p>
-      <Button style={{alignContent:"center"}} color="primary" variant="contained" onClick={onDone}>Done!</Button>
+      <Button
+        style={{ alignContent: "center" }}
+        color="primary"
+        variant="contained"
+        onClick={onDone}
+      >
+        Done!
+      </Button>
     </div>
   );
 

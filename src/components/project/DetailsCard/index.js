@@ -3,11 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
-import Modal from "@material-ui/core/Modal";
-import Button from "@material-ui/core/Button";
-import swal from "@sweetalert/with-react";
-import styles from "./index.css";
-import EditDialog from "../EditDialog";
+import Modal from "../../common/Modal";
 import { useApp } from "../../../AppProvider";
 
 const useStyles = makeStyles({
@@ -47,12 +43,14 @@ const useStyles = makeStyles({
 const DetailsCard = ({ data, select }) => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
-  const { useAuth, useProject } = useApp();
+  const { useAuth, useProject, useModal } = useApp();
   const {token} = useAuth
+  const { showModal, hideModal } = useModal
   const { setProject, deleteById } = useProject;
 
+
   const handleOpen = () => {
-    setOpen(true);
+    showModal("PROJECT_DETAILS_MODAL", {data, select})
   };
 
   const handleClose = () => {
@@ -70,42 +68,9 @@ const DetailsCard = ({ data, select }) => {
 
   const classes = useStyles();
 
-  const details =
-    Object.keys(data).length &&
-    Object.keys(data).map((k) => {
-      return (
-        <p>
-          {k.toUpperCase()} : {data[k]}
-        </p>
-      );
-    });
-
-  const body = (
-    <div
-      className={classes.backDrop}
-      style={{ textAlign: "center", fontFamily: "math", overflow: "visible" }}
-    >
-      <h2> Project Details </h2>
-      {details}
-      <div>
-        <Button variant="outlined" color="primary" onClick={handleOpenEditor}>
-          Edit Project
-        </Button>
-        <EditDialog open={edit} handleClose={handleCloseEditor} />
-        <Button variant="outlined" color="primary" onClick={async ()=>{deleteById(token); swal(
-                <div>
-                  <h1>Project Deleted!</h1>
-                </div>
-              ); return handleClose()}}>
-          Delete Project?
-        </Button>
-      </div>
-    </div>
-  );
-
+  
   if (!data) return null;
   return (
-    <>
       <Card className={classes.root} onClick={handleOpen}>
         <CardContent
           className={classes.content}
@@ -126,19 +91,6 @@ const DetailsCard = ({ data, select }) => {
         </CardContent>
       </Card>
 
-      <Modal
-        className={"modal"}
-        open={open}
-        onClose={handleClose}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {body}
-      </Modal>
-    </>
     );
 };
 

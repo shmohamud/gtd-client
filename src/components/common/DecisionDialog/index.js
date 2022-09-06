@@ -8,25 +8,23 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import NotActionableDialog from "../NotActionableDialog";
 import MultistepDialog from "../MultistepDialog";
 import DoNowModal from "../DoNowModal";
-import CreateDialog from "../../action/CreateDialog";
-import {useApp} from '../../../AppProvider';
+import { useApp } from "../../../AppProvider";
 import { guidingQuestions } from "../constants";
-
 
 const DecisionDialog = ({ data, deleteById, disabled }) => {
   const [open, setOpen] = useState(false);
   const [decisionNumber, setDecisionNumber] = useState(0);
   const [currDecision, setDecision] = useState("");
-  const {useInbasket} = useApp()
-  const {setInbasket} = useInbasket
-  const [count, setCount] = useState(0);
+  const { useInbasket, useModal } = useApp();
+  const { setInbasket } = useInbasket;
+  const { showModal } = useModal;
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    setInbasket([])
+    setInbasket([]);
     setOpen(false);
     setDecision("");
     setDecisionNumber(0);
@@ -34,7 +32,7 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
 
   const getPreviousStep = () => {
     decrementDecisionNumber();
-    setDecision("")
+    setDecision("");
   };
 
   const decrementDecisionNumber = () => {
@@ -50,7 +48,7 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
       setDecision("No");
     }
   };
-  
+
   return (
     <div style={{ margin: "10px" }}>
       <Button variant="outlined" disabled={disabled} onClick={handleClickOpen}>
@@ -91,45 +89,18 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
         ) : (
           ""
         )}
-        {decisionNumber === 3 && currDecision === "No" ? (
-          <CreateDialog
-            data={data}
-            delegate={true}
-            deleteById={deleteById}
-            getPreviousStep={getPreviousStep}
-          />
-        ) : (
-          ""
-        )}
-        {decisionNumber === 4 && currDecision === "No" ? (
-          <CreateDialog
-            data={data}
-            deleteById={deleteById}
-            getPreviousStep={getPreviousStep}
-          />
-        ) : (
-          ""
-        )}
-        {decisionNumber === 5 && currDecision === "No" ? (
-          <CreateDialog
-            data={data}
-            open={true}
-            deleteById={deleteById}
-            getPreviousStep={getPreviousStep}
-          />
-        ) : (
-          ""
-        )}
-        {decisionNumber === 5 && currDecision === "Yes" ? (
-          <CreateDialog
-            data={data}
-            hasDeadline={true}
-            deleteById={deleteById}
-            getPreviousStep={getPreviousStep}
-          />
-        ) : (
-          ""
-        )}
+        {decisionNumber === 3 && currDecision === "No"
+          ? showModal("CREATE_ACTION_MODAL")
+          : ""}
+        {decisionNumber === 4 && currDecision === "No"
+          ? showModal("CREATE_ACTION_MODAL")
+          : ""}
+        {decisionNumber === 5 && currDecision === "No"
+          ? showModal("CREATE_ACTION_MODAL")
+          : ""}
+        {decisionNumber === 5 && currDecision === "Yes"
+          ? showModal("CREATE_ACTION_MODAL")
+          : ""}
 
         <DialogTitle>{guidingQuestions[decisionNumber]}</DialogTitle>
         <DialogContent>

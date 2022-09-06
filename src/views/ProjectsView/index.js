@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import DashboardCard from "../../components/project/DashboardCard";
-import CreateDialog from "../../components/project/CreateDialog";
-import CreateIcon from '@material-ui/icons/Create';
 import styles from "./index.css";
 import { useApp } from "../../AppProvider";
 
+
 const ProjectsView = () => {
-  const { useAuth, useProject } = useApp();
+  const { useAuth, useModal, useProject } = useApp();
+  const { showModal } = useModal;
+  const { projects, setProject, getAll } = useProject;
   const { token } = useAuth;
-  const { projects, setProject, getAll} = useProject;
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getAll(token);
@@ -17,8 +16,12 @@ const ProjectsView = () => {
 
   return (
     <div className="projects-view-main">
-        <button style={{color:"white", backgroundColor:"black"}} onClick={()=>setOpen(true)}>Create Project</button>
-      <CreateDialog open={open} setOpen={setOpen} />
+      <button
+        style={{ color: "white", backgroundColor: "black" }}
+        onClick={() => showModal("CREATE_PROJECT_MODAL")}
+      >
+        Create Project
+      </button>
       <ul className="projects-view-list">
         {projects.length ? (
           projects.map((proj) => (
@@ -26,7 +29,6 @@ const ProjectsView = () => {
               key={proj._id}
               project={proj}
               select={setProject}
-              setOpen={setOpen}
             />
           ))
         ) : (
