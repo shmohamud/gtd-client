@@ -6,7 +6,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DateAndTimePickers from "../../common/DateAndTimePickers";
+import DateAndTimePickers from "../DateTimePicker";
 import swal from '@sweetalert/with-react';
 import { useApp } from "../../../AppProvider";
 

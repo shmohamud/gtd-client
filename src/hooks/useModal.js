@@ -6,6 +6,7 @@ export default function useModal() {
 
   const showModal = (type, modalProps) => {
     setModalType(type);
+    console.log("Type: ", type, "Props: ", modalProps)
     setModalProps(Object.assign({}, modalProps))
   };
 

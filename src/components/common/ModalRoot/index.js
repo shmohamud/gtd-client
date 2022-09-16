@@ -1,14 +1,14 @@
 import React from "react";
-import TestModal from "../../action/TestModal";
-import CreateActionModal from "../../action/CreateModal";
-import CreateProjectModal from "../../project/CreateModal"
-import ProjectDetailsModal from "../../project/DetailsModal"
+import CreateProjectModal from "../../project/Modals/CreateModal";
+import EditProjectModal from "../../project/Modals/EditModal";
+import ReadProjectModal from "../../project/Modals/ReadModal";
+import DeleteProjectModal from "../../project/Modals/DeleteModal"; 
 
 const MODAL_COMPONENTS = {
-  TEST: TestModal,
-  CREATE_ACTION_MODAL: CreateActionModal,
   CREATE_PROJECT_MODAL: CreateProjectModal,
-  PROJECT_DETAILS_MODAL: ProjectDetailsModal,
+  READ_PROJECT_MODAL: ReadProjectModal,
+  EDIT_PROJECT_MODAL: EditProjectModal,
+  DELETE_PROJECT_MODAL: DeleteProjectModal,
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

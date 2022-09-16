@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import AppDrawer from "../common/AppDrawer";
 import Header from "../common/Header";
-import ProjectsView from "../../views/ProjectsView";
-import ArchiveView from "../../views/ArchiveView";
-import NowView from "../../views/NowView";
-import WeekView from "../../views/WeekView";
-import InBasketView from "../../views/InBasketView";
-import BraindumpView from "../../views/BraindumpView";
+import ProjectsPage from "../../pages/Projects";
+import ArchivesPage from "../../pages/Archives";
+import NowPage from "../../pages/Now";
+import WeekPage from "../../pages/Week";
+import InbasketPage from "../../pages/Inbasket";
+import BraindumpPage from "../../pages/Braindump";
 import quotations from "../common/Footer/quotations";
 import { useApp } from "../../AppProvider";
-import LandingView from "../../views/LandingView";
+import LandingPage from "../../pages/Landing";
 import ModalRoot from "../common/ModalRoot";
 import styles from "./index.css";
 
@@ -32,7 +32,7 @@ const App = () => {
 
   return !token.length ? (
     <div>
-      <LandingView />
+      <LandingPage />
     </div>
   ) : (
     <>
@@ -45,31 +45,31 @@ const App = () => {
             <Route
               path="/now"
               render={(props) => {
-                return <NowView quotationIndex={quotationIndex} {...props} />;
+                return <NowPage quotationIndex={quotationIndex} {...props} />;
               }}
             ></Route>
-            <Route path="/week" component={WeekView}></Route>
+            <Route path="/week" component={WeekPage}></Route>
             <Route
               path="/inbasket"
               render={(props) => {
-                return <InBasketView {...props} />;
+                return <InbasketPage {...props} />;
               }}
             ></Route>
             <Route
               path="/braindump"
               render={(props) => {
-                return <BraindumpView {...props} />;
+                return <BraindumpPage {...props} />;
               }}
             ></Route>
-            <Route path="/projects" component={ProjectsView}></Route>
+            <Route path="/projects" component={ProjectsPage}></Route>
             <Route path="/archive">
-              <ArchiveView />
+              <ArchivesPage />
             </Route>
 
             <Route
               path="/"
               render={(props) => {
-                return <NowView quotationIndex={quotationIndex} {...props} />;
+                return <NowPage quotationIndex={quotationIndex} {...props} />;
               }}
             ></Route>
           </Switch>

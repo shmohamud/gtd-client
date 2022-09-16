@@ -1,0 +1,19 @@
+.modal-content {
+    background-color: white;
+    margin: auto;
+    width: 90%;
+    max-width: 40rem;
+    border-radius: 1.5rem;
+}
+
+.project-button-group {
+    display:flex;
+    justify-content:center;
+    border:"1px solid black";
+    color:black;
+}
+
+.project-button-group > button {
+    border:1px solid black;
+    color:black;
+}
