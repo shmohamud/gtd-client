@@ -1,7 +1,7 @@
 import React from "react";
 import { useApp } from "../../../AppProvider";
 
-const TriggerButton = (triggerText, modalType, modalProps) => {
+const TriggerButton = ({triggerText, modalType, modalProps}) => {
   const { useModal } = useApp();
   const { showModal } = useModal;
   const trigger = () => {

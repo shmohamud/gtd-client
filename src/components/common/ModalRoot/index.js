@@ -8,7 +8,7 @@ const MODAL_COMPONENTS = {
   CREATE_PROJECT_MODAL: CreateProjectModal,
   READ_PROJECT_MODAL: ReadProjectModal,
   EDIT_PROJECT_MODAL: EditProjectModal,
-  DELETE_PROJECT_MODAL: DeleteProjectModal,
+  DELETE_PROJECT_MODAL: DeleteProjectModal
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

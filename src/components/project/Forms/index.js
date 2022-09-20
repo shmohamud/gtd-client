@@ -4,8 +4,8 @@ import DateTimePicker from "../../common/DateTimePicker";
 
 const Form = ({ onSubmit, buttonLabel }) => {
   const { useForm } = useApp();
-  const { values } = useForm;
-  const { handleChange, handleSubmit } = useForm(onSubmit);
+  const { handleChange, handleSubmit, values } = useForm(onSubmit);
+
 
   return (
     <form onChange={handleChange} onSubmit={handleSubmit}>

@@ -6,6 +6,7 @@ import { useApp } from "../../AppProvider";
 
 const ProjectsPage = () => {
   const { useAuth, useForm, useModal, useProject } = useApp();
+  const {setValues} = useForm()
   const { showModal } = useModal;
   const { projects, setProject, getAll, create } = useProject;
   const { token } = useAuth;
@@ -22,13 +23,14 @@ const ProjectsPage = () => {
 
   useEffect(() => {
     getAll(token);
+    setValues({title:"", description:"", deadline:""})
   }, []);
 
   return (
     <div className="projects-view-main">
       <button
         style={{ color: "white", backgroundColor: "black" }}
-        onClick={() => showModal("CREATE_UPDATE_PROJECT_MODAL", {crudOperation:"create"})}
+        onClick={() => showModal("CREATE_PROJECT_MODAL", {})}
       >
         Create Project
       </button>
