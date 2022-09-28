@@ -1,11 +1,11 @@
 import React from "react";
 import { useApp } from "../../../AppProvider";
-import DateTimePicker from "../../common/DateTimePicker";
+import Button from "@material-ui/core/Button"
+import DateTimePicker from 'react-datetime-picker';
 
-const Form = ({ onSubmit, buttonLabel }) => {
+const Form = ({ onSubmit, buttonLabel, defaultValues }) => {
   const { useForm } = useApp();
-  const { handleChange, handleSubmit, values } = useForm(onSubmit);
-
+  const { handleChange, handleSubmit, values } = useForm(onSubmit, {}, defaultValues);
 
   return (
     <form onChange={handleChange} onSubmit={handleSubmit}>
@@ -25,9 +25,8 @@ const Form = ({ onSubmit, buttonLabel }) => {
         value={values["description"]}
         required
       />
-
-      <DateTimePicker name={"deadline"} />
-      {buttonLabel && <button type="submit">{buttonLabel}</button>}
+      <DateTimePicker minDate={new Date() }onChange={value => handleChange ({target: {value, name: 'deadline'}})} value={values["deadline"] || new Date()}  />
+      {buttonLabel && <Button style={{backgroundColor:"green", color:"white", margin:"1rem"}} type="submit" >{buttonLabel}</Button>}
     </form>
   );
 };

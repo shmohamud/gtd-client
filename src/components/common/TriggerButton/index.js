@@ -1,13 +1,16 @@
 import React from "react";
+import Button from "@material-ui/core/Button"
 import { useApp } from "../../../AppProvider";
 
-const TriggerButton = ({triggerText, modalType, modalProps}) => {
+const TriggerButton = ({modalType, modalProps, triggerText}) => {
   const { useModal } = useApp();
   const { showModal } = useModal;
-  const trigger = () => {
+
+
+  const onTrigger = () => {
     showModal(modalType, modalProps);
   };
-  return <button onClick={trigger}>{triggerText}</button>;
+  return <Button onClick={onTrigger}>{triggerText}</Button>;
 };
 
 export default TriggerButton;

@@ -12,6 +12,7 @@ import quotations from "../common/Footer/quotations";
 import { useApp } from "../../AppProvider";
 import LandingPage from "../../pages/Landing";
 import ModalRoot from "../common/ModalRoot";
+import ReadModal from "../project/Modals/ReadModal";
 import styles from "./index.css";
 
 const App = () => {
@@ -36,7 +37,7 @@ const App = () => {
     </div>
   ) : (
     <>
-      <ModalRoot modalType={modalType} modalProps={modalProps}/>
+      <ModalRoot modalType={modalType} modalProps={modalProps} />
       <div className="container">
         <Header />
         <main>
@@ -61,7 +62,12 @@ const App = () => {
                 return <BraindumpPage {...props} />;
               }}
             ></Route>
-            <Route path="/projects" component={ProjectsPage}></Route>
+            <Route
+              path="/projects"
+              render={(props) => {
+                return <ProjectsPage {...props} />;
+              }}
+            />
             <Route path="/archive">
               <ArchivesPage />
             </Route>

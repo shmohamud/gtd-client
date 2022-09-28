@@ -1,5 +1,4 @@
 import React from "react";
-import baseUrl from "./api/baseUrl";
 import { projects as api } from "./api";
 import { useState } from "react";
 
@@ -32,8 +31,9 @@ export default function useProject() {
   };
 
   const updateById = async (token, validity, body) => {
+
     try {
-      await api.updateById(token, body, project._id);
+      await api.updateById(token, body, body._id);
       setProject((project) => Object.assign(project, body));
       getAll(token);
     } catch (err) {
@@ -41,11 +41,11 @@ export default function useProject() {
     }
   };
 
-  const deleteById = async (token) => {
+  const deleteById = async (token, id) => {
     try {
-      await api.deleteById(token, project._id);
+      await api.deleteById(token, id);
       setProjects((projects) => [
-        ...projects.filter((p) => p._id !== project._id),
+        ...projects.filter((p) => p._id !== id),
       ]);
     } catch (err) {
       console.log("Error: ", err);

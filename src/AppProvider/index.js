@@ -15,16 +15,16 @@ const AppCtx = createContext();
 
 const AppProvider = ({ children }) => {
   let value = {
-    useProject: useProject(),
+    useAuth: useAuth(),
+    useForm: useForm,
+    useModal: useModal(),
     useAction: useAction(),
+    useProject: useProject(),
     useBraindump: useBraindump(),
     useReview: useReview(),
     useReference: useReference(),
     useIncubate: useIncubate(),
     useInbasket: useInbasket(),
-    useAuth: useAuth(),
-    useForm: useForm,
-    useModal:useModal()
   };
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;

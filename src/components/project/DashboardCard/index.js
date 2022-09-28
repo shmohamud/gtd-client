@@ -1,30 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import { useApp } from "../../../AppProvider";
 
-const DashboardCard = ({ project, select }) => {
-  const [open, setOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
+const DashboardCard = ({ project }) => {
+  const { useModal } = useApp();
+  const { showModal } = useModal;
 
-  const { useAuth, useForm, useModal, useProject } = useApp();
-  const { token } = useAuth;
-  const { showModal, hideModal } = useModal;
-  const { setProject, deleteById } = useProject;
-  const { create } = useProject;
-
-  const onSubmit = async (validity, values) => {
-    try {
-      await create(token, {}, values);
-    } catch (err) {
-
-      console.log("Error: ", err)
-    }
-  };
-
-  const { handleChange, handleSubmit } = useForm(onSubmit);
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -63,19 +47,6 @@ const DashboardCard = ({ project, select }) => {
     showModal("READ_PROJECT_MODAL", {data:project});
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpenEditor = () => {
-    select(project);
-    setEdit(true);
-  };
-
-  const handleCloseEditor = () => {
-    setEdit(false);
-  };
-
   const classes = useStyles();
 
   if (!project) return null;
@@ -83,7 +54,6 @@ const DashboardCard = ({ project, select }) => {
     <Card className={classes.root} onClick={handleOpen}>
       <CardContent
         className={classes.content}
-        onClick={() => setProject(project)}
       >
         <Typography className={classes.title} variant="h5" component="h2">
           {project.title}

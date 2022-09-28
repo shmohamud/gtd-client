@@ -1,5 +1,4 @@
 import React from "react";
-import baseUrl from "./api/baseUrl";
 import { useState } from "react";
 import { reviews as api } from "./api";
 

@@ -1,8 +1,9 @@
 import { React } from "react";
-import swal from "@sweetalert/with-react";
 import Form from "../../Forms/Create";
 import Modal from "../../../common/Modal";
 import { useApp } from "../../../../AppProvider";
+import Button from "@material-ui/core/Button"
+import swal from "@sweetalert/with-react";
 import styles from './index.css'
 
 const CreateModal = () => {
@@ -28,15 +29,16 @@ const CreateModal = () => {
       );
       console.log("Error: ", err)
     }
+    hideModal()
   }
 
   return (
     <Modal >
       <div className="modal-content">
           <Form onSubmit={onSubmit} buttonLabel={"Save"}/>
-          <button onClick={hideModal} color="primary">
+          <Button  style={{backgroundColor:"white", color:"red", border:"1px solid red"}}  onClick={hideModal} color="primary">
             Cancel
-          </button>
+          </Button>
       </div>
     </Modal>
   );

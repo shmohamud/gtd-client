@@ -1,22 +1,14 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
-import { useApp } from "../../../AppProvider";
+import React, {useEffect} from "react";
+import DateTimePicker from 'react-datetime-picker';
+import "./index.css"
 
-export default function DateTimePicker({ name }) {
-  const { useForm } = useApp();
-  const { handleChange, values } = useForm();
+export default function DTPicker(props) {
+
+  useEffect(()=>{
+      console.log("Change: ", props.value)
+  }, [props.value])
 
   return (
-    <TextField
-      onChange={handleChange}
-      id="datetime-local"
-      label="Deadline"
-      name="deadline"
-      type="datetime-local"
-      value={values[name]}
-      InputLabelProps={{
-        shrink: true,
-      }}
-    />
+    <DateTimePicker className="date-time-picker" value={new Date(props.value)} />
   );
 }

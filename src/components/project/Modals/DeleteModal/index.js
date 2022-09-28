@@ -7,9 +7,11 @@ import { useApp } from "../../../../AppProvider";
 import styles from "./index.css";
 
 const DeleteModal = ({ data }) => {
-  const { useAuth, useProject } = useApp();
+  const { useAuth,useModal, useProject } = useApp();
   const { token } = useAuth;
+  const { hideModal } = useModal
   const { deleteById } = useProject;
+
 
   if (!data) return null;
 
@@ -17,34 +19,29 @@ const DeleteModal = ({ data }) => {
 
   return (
     <Modal>
-      {Object.keys(data).length &&
-        Object.keys(data).map((k) => {
-          return (
-            <p>
-              {k.toUpperCase()} : {JSON.stringify(data[k])}
-            </p>
-          );
-        })}
+      <div className="modal-content">
+      <p>Are you sure you want to <span style={{color:"red", fontWeight:"bold"}}>Delete</span> Project: ${data._id}?</p>
       <div className="project-button-group">
         <Button
-          variant="outlined"
-          color="primary"
+          style={{backgroundColor:"rgb(234,66,53)"}}
           onClick={async () => {
-            deleteById(token);
+            deleteById(token, data._id);
             swal(
               <div>
                 <h1>Project Deleted!</h1>
               </div>
             );
+            hideModal()
           }}
         >
-          Delete
+          Yes
         </Button>
         <TriggerButton
-          triggerText={"Cancel"}
+          triggerText={"No"}
           modalType={"READ_PROJECT_MODAL"}
           modalProps={data}
         />
+      </div>
       </div>
     </Modal>
   );

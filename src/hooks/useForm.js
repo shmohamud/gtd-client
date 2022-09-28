@@ -25,7 +25,7 @@ export default function useForm(
   };
 
   const handleChange = (event) => {
-    console.log("Value from handleChange: ", event.target.value)
+    if (!event.target) return;
     let value = event.target.value
     let name = event.target.name;
     if (validationSchema[name]) {
