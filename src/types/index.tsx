@@ -17,4 +17,4 @@ type Reference = {
   _id: number;
 };
 
-export {};
+export default {};
