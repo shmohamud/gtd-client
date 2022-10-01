@@ -8,13 +8,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
-import CalendarToday from "@material-ui/icons/CalendarToday";
-import CalendarViewDay from "@material-ui/icons/CalendarViewDay";
-import WorkIcon from "@material-ui/icons/Work";
-import WorkOffIcon from "@material-ui/icons/WorkOff";
-import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
-import Update from "@material-ui/icons/Update";
-import AddIcon from '@material-ui/icons/Add';
+import CalendarToday from "@mui/icons-material/CalendarToday";
+import CalendarViewDay from "@mui/icons-material/CalendarViewDay";
+import WorkIcon from "@mui/icons-material/Work";
+import WorkOffIcon from "@mui/icons-material/WorkOff";
+import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
+import Update from "@mui/icons-material/Update";
+import AddIcon from '@mui/icons-material/Add';
 import {useApp} from "../../../AppProvider"
 
 const useStyles = makeStyles((theme) => ({
@@ -78,7 +78,7 @@ export default function AppDrawer() {
               </ListItemIcon>
               <ListItemText primary={"Braindump"} />
             </ListItem>
-            <ListItem button component={Link} to="/projects" key={"67562e132e123e"}>
+            <ListItem button component={Link} to="/project" key={"67562e132e123e"}>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>

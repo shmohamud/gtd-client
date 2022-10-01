@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import AppDrawer from "../common/AppDrawer";
 import Header from "../common/Header";
-import ProjectsPage from "../../pages/Projects";
-import ArchivesPage from "../../pages/Archives";
+import ProjectPage from "../../pages/Project";
+import ArchivePage from "../../pages/Archive";
 import NowPage from "../../pages/Now";
 import WeekPage from "../../pages/Week";
 import InbasketPage from "../../pages/Inbasket";
@@ -12,7 +12,6 @@ import quotations from "../common/Footer/quotations";
 import { useApp } from "../../AppProvider";
 import LandingPage from "../../pages/Landing";
 import ModalRoot from "../common/ModalRoot";
-import ReadModal from "../project/Modals/ReadModal";
 import styles from "./index.css";
 
 const App = () => {
@@ -63,13 +62,13 @@ const App = () => {
               }}
             ></Route>
             <Route
-              path="/projects"
+              path="/project"
               render={(props) => {
-                return <ProjectsPage {...props} />;
+                return <ProjectPage {...props} />;
               }}
             />
             <Route path="/archive">
-              <ArchivesPage />
+              <ArchivePage />
             </Route>
 
             <Route

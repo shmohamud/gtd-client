@@ -4,12 +4,13 @@ import Form from "./index";
 import { useApp } from "../../../AppProvider";
 
 const Create = () => {
-  const { useAuth, useProject } = useApp();
+  const { useAuth, useModal, useProject } = useApp();
   const { token } = useAuth;
   const { create } = useProject;
 
   const onSubmit = async (validity, values) => {
     try {
+      console.log("On Submit for Create hit!: ", validity, values)
       await create(token, {}, values);
       swal(
         <div>
@@ -24,6 +25,7 @@ const Create = () => {
       );
       console.log("Error: ", err);
     }
+    useModal.hideModal()
   };
 
   return (

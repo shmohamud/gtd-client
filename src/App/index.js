@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import AppDrawer from "../components/common/AppDrawer";
 import Header from "../components/common/Header";
 import ProjectsPage from "../pages/Projects";
-import ArchivesPage from "../pages/Archives";
+import ArchivePage from "../pages/Archive";
 import NowPage from "../pages/Now";
 import WeekPage from "../pages/Week";
 import InbasketPage from "../pages/Inbasket";
@@ -62,13 +62,13 @@ const App = () => {
               }}
             ></Route>
             <Route
-              path="/projects"
+              path="/project"
               render={(props) => {
                 return <ProjectsPage {...props} />;
               }}
             />
             <Route path="/archive">
-              <ArchivesPage />
+              <ArchivePage />
             </Route>
 
             <Route
