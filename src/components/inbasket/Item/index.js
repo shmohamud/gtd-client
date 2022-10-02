@@ -1,6 +1,7 @@
 import React from "react";
 import DecisionDialog from "../../common/DecisionDialog";
 import { useApp } from "../../../AppProvider";
+import "./index.css"
 
 const Item = ({ data }) => {
   const { useInbasket } = useApp();
@@ -11,7 +12,7 @@ const Item = ({ data }) => {
   };
 
   return (
-    <li key={data._id} onClick={() => select(data)}>
+    <li key={data._id} className="inbasket-li-item" onClick={() => select(data)}>
       <DecisionDialog key={data._id} data={data} deleteById={deleteById}/>
     </li>
   );

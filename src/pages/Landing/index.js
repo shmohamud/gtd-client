@@ -2,30 +2,23 @@ import React from "react";
 import Login from "../../components/common/Login";
 import Signup from "../../components/common/Signup";
 import Logo from "../../components/common/Logo";
+import "./index.css"
 import AppBlurb from "../../components/common/AppBlurb";
 
 const LandingPage = () => {
   return (
-    <>
+    <div className="landing-page-container">
       <Logo />
       <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-        }}
       >
         <AppBlurb />
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
         >
           <Login />
           <Signup />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

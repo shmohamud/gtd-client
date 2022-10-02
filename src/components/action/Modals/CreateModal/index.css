@@ -1,0 +1,8 @@
+.modal-content {
+    background-color: white;
+    margin: auto;
+    width: 90%;
+    max-width: 40rem;
+    border-radius: 1.5rem;
+}
+

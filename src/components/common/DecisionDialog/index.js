@@ -20,7 +20,8 @@ const DecisionDialog = ({ data, deleteById, disabled }) => {
   const { showModal } = useModal;
 
   const handleClickOpen = () => {
-    setOpen(true);
+    showModal("STEPPER_MODAL", {data} )
+    // setOpen(true);
   };
 
   const handleClose = () => {

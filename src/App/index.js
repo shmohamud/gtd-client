@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import AppDrawer from "../components/common/AppDrawer";
 import Header from "../components/common/Header";
-import ProjectsPage from "../pages/Projects";
+import ProjectsPage from "../pages/Project";
 import ArchivePage from "../pages/Archive";
 import NowPage from "../pages/Now";
 import WeekPage from "../pages/Week";
@@ -31,9 +31,7 @@ const App = () => {
   }, []);
 
   return !token.length ? (
-    <div>
       <LandingPage />
-    </div>
   ) : (
     <>
       <ModalRoot modalType={modalType} modalProps={modalProps} />
