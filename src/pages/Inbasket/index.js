@@ -1,27 +1,33 @@
 import React from "react";
-import styles from "./index.css";
 import { useApp } from "../../AppProvider";
 import InbasketList from "../../components/inbasket/List";
-import TextInput from "../../components/inbasket/TextInput";
+import AutogrowTextarea from "../../components/common/AutogrowTextarea";
+import Button from "@material-ui/core/Button";
+import "./index.css";
 
 const InbasketPage = () => {
-  const { useAuth, useInbasket } = useApp();
-  const {token} = useAuth
+  const { useAuth, useForm, useInbasket } = useApp();
+  const { token } = useAuth;
   const { create } = useInbasket;
 
-  const handleKeyPress = (e) => {
-    if (e.key == "Enter" && e.target.value.length) {
-      let body = {description: e.target.value}
-      create(token, {}, body);
-      e.preventDefault();
-      e.target.value = "";
-    }
+  const onSubmit = (validity, values) => {
+    console.log("Values: ", values);
+     create(token, {}, values);
   };
 
+  const { handleChange, handleSubmit } = useForm(onSubmit);
+
   return (
-    <div className="inbasket-view-container">
+    <div className="inbasket-page-container">
       <h1>In Basket</h1>
-      <TextInput keyPress={handleKeyPress} />
+      <div className="inputs-container">
+        <AutogrowTextarea
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
+        <Button onClick={handleSubmit}>ADD</Button>
+      </div>
+
       <InbasketList />
     </div>
   );

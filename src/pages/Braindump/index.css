@@ -1,6 +1,24 @@
-.braindump-view-container {
+.braindump-page-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.inputs-container {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.inputs-container > .MuiButton-root {
+    color:white;
+    background-color:black;
+    margin-left:.5rem;
+}
+
+.inputs-container > .MuiButton-root:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    color:black;
+    border:.5px solid black;
 }

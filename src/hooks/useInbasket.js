@@ -1,5 +1,5 @@
 import React from "react";
-import {inbaskets as api} from './api'
+import { inbaskets as api } from "./api";
 import { useState } from "react";
 
 export default function useInbasket() {
@@ -10,17 +10,17 @@ export default function useInbasket() {
   //Get list of all inbaskets
   const getAll = async (token) => {
     try {
-      const response = await api.get(token)
+      const response = await api.get(token);
       const data = await response.json();
       setInbaskets(data);
     } catch (err) {
       setErr(err);
     }
-  }; 
+  };
 
   const create = async (token, valdity, body) => {
     try {
-      const response = await api.create(token, body)
+      const response = await api.create(token, body);
       const data = await response.json();
       setInbaskets((inbaskets) => [...inbaskets, data]);
     } catch (err) {
@@ -30,8 +30,10 @@ export default function useInbasket() {
 
   const deleteById = async (token) => {
     try {
-      await api.deleteById(token, inbasket._id)
-      setInbaskets((inbaskets) => [...inbaskets.filter((i) => i._id !== inbasket._id)]);
+      await api.deleteById(token, inbasket._id);
+      setInbaskets((inbaskets) => [
+        ...inbaskets.filter((i) => i._id !== inbasket._id),
+      ]);
     } catch (err) {
       console.log("Error: ", err);
     }
@@ -41,9 +43,9 @@ export default function useInbasket() {
     inbaskets,
     inbasket,
     err,
-    setInbasket, 
+    setInbasket,
     getAll,
     create,
-    deleteById
+    deleteById,
   };
 }

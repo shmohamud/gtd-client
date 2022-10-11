@@ -15,7 +15,8 @@ import WorkOffIcon from "@mui/icons-material/WorkOff";
 import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
 import Update from "@mui/icons-material/Update";
 import AddIcon from '@mui/icons-material/Add';
-import {useApp} from "../../../AppProvider"
+import {useApp} from "../../../AppProvider";
+import "./index.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     position:"relative",
   },
+
+  
+
 }));
 
 export default function AppDrawer() {
@@ -33,12 +37,13 @@ export default function AppDrawer() {
   const classes = useStyles();
   return (
       <Drawer
+      
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-        <Toolbar>
+        <Toolbar className="mui-toolbar-gutter">
         <div >
           <List>
             <ListItem button component={Link} to="/now" key={"21312312312"}>

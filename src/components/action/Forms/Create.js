@@ -4,9 +4,9 @@ import Form from "./index";
 import { useApp } from "../../../AppProvider";
 
 const Create = () => {
-  const { useAuth, useModal, useProject } = useApp();
+  const { useAuth, useModal, useAction } = useApp();
   const { token } = useAuth;
-  const { create } = useProject;
+  const { create } = useAction;
 
   const onSubmit = async (validity, values) => {
     try {

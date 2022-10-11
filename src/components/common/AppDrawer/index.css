@@ -1,0 +1,6 @@
+@media(min-width: 600px){
+  .mui-toolbar-gutter{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}

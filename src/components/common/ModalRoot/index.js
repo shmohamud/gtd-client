@@ -7,7 +7,8 @@ import CreateActionModal from "../../action/Modals/CreateModal";
 import EditActionModal from "../../action/Modals/EditModal";
 import ReadActionModal from "../../action/Modals/ReadModal";
 import DeleteActionModal from "../../action/Modals/DeleteModal"; 
-import StepperModal from "../StepperModal"
+import DoNowModal from "../DoNowModal"
+import ProcessingModal from "../ProcessingModal"
 
 const MODAL_COMPONENTS = {
   CREATE_PROJECT_MODAL: CreateProjectModal,
@@ -18,7 +19,8 @@ const MODAL_COMPONENTS = {
   READ_ACTION_MODAL: ReadActionModal,
   EDIT_ACTION_MODAL: EditActionModal,
   DELETE_ACTION_MODAL: DeleteActionModal,
-  STEPPER_MODAL: StepperModal
+  PROCESSING_MODAL: ProcessingModal,
+  DO_NOW_MODAL:DoNowModal,
 };
 
 const ModalRoot = ({ modalType, modalProps }) => {

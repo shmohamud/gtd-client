@@ -52,7 +52,7 @@ const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
     getPreviousStep();
     setOpen(false);
   };
-  
+
   const formatTime = () => {
     const date = new Date(0);
     date.setSeconds(timeLeft);

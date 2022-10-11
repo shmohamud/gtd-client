@@ -1,20 +1,41 @@
 import React from "react";
-import DecisionDialog from "../../common/DecisionDialog";
+import Tooltip from "@material-ui/core/Tooltip";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { useApp } from "../../../AppProvider";
-import "./index.css"
+import "./index.css";
 
 const Item = ({ data }) => {
-  const { useInbasket } = useApp();
-  const { setInbasket, deleteById } = useInbasket;
+  const { useInbasket, useModal } = useApp();
+  const { deleteById } = useInbasket;
+  const { showModal } = useModal;
 
-  const select = () => {
-    setInbasket(data);
+  const handleClickProcess = () => {
+    showModal("PROCESSING_MODAL", { data, deleteById });
   };
 
   return (
-    <li key={data._id} className="inbasket-li-item" onClick={() => select(data)}>
-      <DecisionDialog key={data._id} data={data} deleteById={deleteById}/>
-    </li>
+    <Card>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          {data.description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Tooltip title="Click here to process this inbasket item!">
+          <Button
+            style={{ margin: "0 auto", display: "block" }}
+            onClick={handleClickProcess}
+            size="small"
+          >
+            Process
+          </Button>
+        </Tooltip>
+      </CardActions>
+    </Card>
   );
 };
 

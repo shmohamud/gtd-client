@@ -1,27 +1,32 @@
 import React from "react";
-import styles from "./index.css";
-import TextInput from "../../components/braindump/TextInput";
+import AutogrowTextarea from "../../components/common/AutogrowTextarea";
 import BraindumpList from "../../components/braindump/List";
-import {useApp} from '../../AppProvider'
+import { useApp } from "../../AppProvider";
+import Button from "@material-ui/core/Button";
+import "./index.css";
 
 const BraindumpPage = () => {
-  const {useAuth, useBraindump} = useApp();
-  const { create } = useBraindump
-  const {token} = useAuth
+  const { useAuth, useBraindump, useForm } = useApp();
+  const { create } = useBraindump;
+  const { token } = useAuth;
 
-  const handleKeyPress = (e) => {
-    if (e.key == "Enter" && e.target.value.length) {
-      let body = {description: e.target.value}
-      create(token, {}, body)
-      e.preventDefault();
-      e.target.value = "";
-    }
+  const onSubmit = (validity, values) => {
+    console.log("Values: ", values);
+    create(token, {}, values);
   };
-  
+
+  const { handleChange, handleSubmit } = useForm(onSubmit);
+
   return (
-    <div className="braindump-view-container">
+    <div className="braindump-page-container">
       <h1>Braindump</h1>
-      <TextInput keyPress={handleKeyPress} />
+      <div className="inputs-container">
+        <AutogrowTextarea
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
+        <Button onClick={handleSubmit}>ADD</Button>
+      </div>
       <BraindumpList />
     </div>
   );

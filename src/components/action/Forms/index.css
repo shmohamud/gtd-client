@@ -1,0 +1,18 @@
+.select {
+    position: relative;
+}
+
+.select:after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 13px;
+    margin-top: 16px;
+    border: 1px solid #565656;
+    background: #efefef;
+    color:#706969;
+    padding: 1.5px 6px;
+    pointer-events: none;
+}
