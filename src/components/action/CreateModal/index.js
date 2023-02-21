@@ -111,6 +111,17 @@ export default function CreateModal({ hasDeadline, delegate }) {
           </div>
           <div className="radio-group">
             <fieldset>
+              <legend>Choose Priority Level</legend>
+              <label for="low">Low</label>
+              <input type="radio" id="low" name="priroity" value="low" />
+              <label for="medium">Medium</label>
+              <input type="radio" id="medium" name="priroity" value="medium" />
+              <label for="high">High</label>
+              <input type="radio" id="high" name="priroity" value="high" />
+            </fieldset>
+          </div>
+          <div className="radio-group">
+            <fieldset>
               <legend>Choose a Setting</legend>
               <label for="home">Home</label>
               <input type="radio" id="home" name="setting" value="home" />

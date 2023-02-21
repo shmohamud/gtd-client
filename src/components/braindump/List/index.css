@@ -2,3 +2,9 @@
     overflow:scroll;
     width:100%;
 }
+
+.QuickLinksFlexContainer {
+    display:flex;
+    height:600px;
+    width:1000px;
+}

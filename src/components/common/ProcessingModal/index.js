@@ -55,7 +55,7 @@ const ProcessingModal = ({ data, deleteById }) => {
 
       no: {
         callback: () => {
-          useModal.showModal("DO_NOW_MODAL", {initialTime:180,
+          useModal.showModal("DO_NOW_MODAL", {startTime:180,
           data,
           deleteById,
           })

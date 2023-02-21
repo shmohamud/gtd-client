@@ -18,9 +18,9 @@ const Item = ({ data }) => {
   };
 
   return (
-    <Card>
+    <Card onClick={handleClickProcess}>
       <CardContent>
-        <Typography variant="h5" component="div">
+        <Typography variant="h5" component="span" style={{fontSize:"1rem"}}>
           {data.description}
         </Typography>
       </CardContent>

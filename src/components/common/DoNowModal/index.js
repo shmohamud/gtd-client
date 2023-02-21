@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
   button: {},
 }));
 
-const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
+const DoNowModal = ({ startTime, deleteById }) => {
   const [open, setOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(initialTime);
+  const [timeLeft, setTimeLeft] = useState(startTime);
   const { useAuth } = useApp();
   const { token } = useAuth;
   useEffect(() => {
@@ -49,7 +49,6 @@ const DoNowModal = ({ initialTime, data, deleteById, getPreviousStep }) => {
   const [modalStyle] = useState(getModalStyle);
 
   const handleClose = () => {
-    getPreviousStep();
     setOpen(false);
   };
 

@@ -35,7 +35,6 @@ const NowPage = ({ quotationIndex }) => {
 
   return (
     <div className="now-view-container">
-      <Timer initial={1200} />
       <div className="actions-list-container">
         {actions.length ? (
           <List

@@ -11,9 +11,22 @@ import useInbasket from "../hooks/useInbasket";
 import useAuth from "../hooks/useAuth";
 import useModal from "../hooks/useModal";
 
-const AppCtx = createContext();
+type ContextValue = {
+  useForm: () => () => {
+    handleChange: () => {},
+    handleSubmit: () => {},
+    values: {},
+    setValues: () => {},
+    validity: boolean,
+    errs: any[],
+    clearErr: () => {},
+  }
+  [k: string]: any;
+}
 
-const AppProvider = ({ children }) => {
+const AppCtx = createContext<ContextValue | null>(null);
+
+const AppProvider = (props:any) => {
   let value = {
     useAuth: useAuth(),
     useForm: useForm,
@@ -27,7 +40,7 @@ const AppProvider = ({ children }) => {
     useInbasket: useInbasket(),
   };
 
-  return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;
+  return <AppCtx.Provider value={value}>{props.children}</AppCtx.Provider>;
 };
 
 export default AppProvider;

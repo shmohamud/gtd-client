@@ -12,19 +12,16 @@ const InbasketPage = () => {
 
   const onSubmit = (validity, values) => {
     console.log("Values: ", values);
-     create(token, {}, values);
+    create(token, {}, values);
   };
 
-  const { handleChange, handleSubmit } = useForm(onSubmit);
+  const { handleSubmit } = useForm(onSubmit);
 
   return (
     <div className="inbasket-page-container">
       <h1>In Basket</h1>
       <div className="inputs-container">
-        <AutogrowTextarea
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
+        <AutogrowTextarea />
         <Button onClick={handleSubmit}>ADD</Button>
       </div>
 

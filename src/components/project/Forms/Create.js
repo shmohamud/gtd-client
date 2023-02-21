@@ -10,7 +10,6 @@ const Create = () => {
 
   const onSubmit = async (validity, values) => {
     try {
-      console.log("On Submit for Create hit!: ", validity, values)
       await create(token, {}, values);
       swal(
         <div>
