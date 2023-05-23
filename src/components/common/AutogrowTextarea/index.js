@@ -1,20 +1,9 @@
 import React, { useEffect } from "react";
 import autosize from "autosize";
-import { useApp } from "../../../AppProvider";
-import "./index.css";
+ import "./index.css";
 
-const AutogrowTextarea = () => {
-  const { useAuth, useForm, useInbasket } = useApp();
-  const { token } = useAuth;
-  const { create } = useInbasket;
-
-  const onSubmit = (validity, values) => {
-    console.log("Values: ", values);
-     create(token, {}, values);
-  };
-
-  const { handleChange, handleSubmit } = useForm(onSubmit);
-
+const AutogrowTextarea = ({handleChange, handleSubmit}) => {
+  
   useEffect(() => {
     autosize(document.getElementsByClassName("autogrow-textarea")[0]);
   }, []);

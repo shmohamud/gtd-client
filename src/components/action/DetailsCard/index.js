@@ -88,7 +88,11 @@ const DetailsCard = ({ check, data }) => {
       style={{ textAlign: "center", fontFamily: "math", overflow: "visible" }}
     >
       <h2> Action Details </h2>
-      {details}
+      <div>
+            <pre>{
+              JSON.stringify(data, null, 2)
+            }</pre>
+          </div>
       <div>
         <Button variant="outlined" color="primary" onClick={handleOpenEditor}>
           Edit Action
@@ -129,7 +133,7 @@ const DetailsCard = ({ check, data }) => {
           justifyContent: "center",
         }}
       >
-        {body}
+      {body}
       </Modal>
     </>
   );

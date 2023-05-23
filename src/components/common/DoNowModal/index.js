@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DoNowModal = ({ startTime, deleteById }) => {
   const [open, setOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(startTime);
+  const [timeLeft, setTimeLeft] = useState(300);
   const { useAuth } = useApp();
   const { token } = useAuth;
   useEffect(() => {
@@ -53,9 +53,8 @@ const DoNowModal = ({ startTime, deleteById }) => {
   };
 
   const formatTime = () => {
-    const date = new Date(0);
-    date.setSeconds(timeLeft);
-    const timeString = date.toISOString().substr(14, 5);
+    new Date().setSeconds(timeLeft);
+    const timeString = new Date().toISOString().substr(14, 5);
     return timeString;
   };
 

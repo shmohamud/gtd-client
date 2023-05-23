@@ -15,13 +15,14 @@ const InbasketPage = () => {
     create(token, {}, values);
   };
 
-  const { handleSubmit } = useForm(onSubmit);
+  const { handleSubmit, handleChange } = useForm(onSubmit);
 
   return (
     <div className="inbasket-page-container">
       <h1>In Basket</h1>
       <div className="inputs-container">
-        <AutogrowTextarea />
+        //TODO: fix this
+        <AutogrowTextarea handleChange={handleChange} handleSubmit={handleSubmit}  />
         <Button onClick={handleSubmit}>ADD</Button>
       </div>
 

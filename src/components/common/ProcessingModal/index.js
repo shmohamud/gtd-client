@@ -84,6 +84,7 @@ const ProcessingModal = ({ data, deleteById }) => {
       yes: {
         callback: () => {
           useModal.showModal("CREATE_ACTION_MODAL", {});
+          //TODO: If it's from braindump or inbasket, pass proper deleteById and delete on add.     
           resetState();
         },
       },
